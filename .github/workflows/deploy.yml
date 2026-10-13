@@ -18,9 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check source and build optimized published site
+        run: |
+          python3 test_site.py
+          node --check script.js
+          python3 build_site.py
+          test -s dist/index.html
+          test -s dist/assets/joseph-hero-mobile-fast.webp
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
