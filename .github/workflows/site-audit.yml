@@ -1,0 +1,56 @@
+name: Website quality and Lighthouse audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/site-audit.yml'
+  workflow_run:
+    workflows: ["Deploy static website to GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source files and JavaScript
+        run: |
+          python3 test_site.py
+          node --check script.js
+      - name: Install Lighthouse tester
+        run: npm install --global lighthouse@12
+      - name: Test mobile and desktop live website
+        env:
+          SITE_URL: https://yohannesmulugeta.github.io/GET-FIT-WITH-JO/
+        run: |
+          set -euo pipefail
+          mkdir -p lighthouse-reports
+          CHROME_PATH="$(which google-chrome-stable || which google-chrome || which chromium-browser)"
+          export CHROME_PATH
+          echo "Chrome: $CHROME_PATH"
+          lighthouse "$SITE_URL" --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=lighthouse-reports/mobile.json --quiet --max-wait-for-load=30000
+          lighthouse "$SITE_URL" --preset=desktop --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=lighthouse-reports/desktop.json --quiet --max-wait-for-load=30000
+          node - <<'JS'
+          const fs=require('fs');
+          for(const mode of ['mobile','desktop']){
+            const r=JSON.parse(fs.readFileSync('lighthouse-reports/'+mode+'.json','utf8'));
+            const scores=Object.fromEntries(Object.entries(r.categories).map(([k,v])=>[k,Math.round(v.score*100)]));
+            const a=r.audits;
+            const metrics=Object.fromEntries(['first-contentful-paint','largest-contentful-paint','speed-index','total-blocking-time','cumulative-layout-shift'].map(k=>[k,a[k]?.displayValue??null]));
+            const opportunities=Object.values(a).filter(x=>x.score!==null&&x.score!==undefined&&x.score<0.9&&x.details?.type==='opportunity').map(x=>({id:x.id,title:x.title,savings:x.details?.overallSavingsMs||0})).sort((x,y)=>y.savings-x.savings).slice(0,8);
+            console.log(mode.toUpperCase()+'_AUDIT '+JSON.stringify({scores,metrics,opportunities,fetchTime:r.fetchTime,finalUrl:r.finalUrl,runWarnings:r.runWarnings}));
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-lighthouse-${{ github.run_id }}
+          path: lighthouse-reports/
+          retention-days: 7
