@@ -35,3 +35,7 @@ Push the files to `main`; the repository GitHub Pages workflow publishes from th
 - [ ] Confirm program details and published rates, if pricing is to be restored.
 - [ ] Obtain consent for client stories before restoring them.
 - [ ] Add real, confirmed social media profile links when available.
+
+## Updated professional visual concepts (October 2026)
+
+The `joseph-*-pro.webp` assets, including the hero, coaching, strength, nutrition, outdoor, about and avatar portraits, are AI-generated creative illustrations. Joseph must approve his likeness before representing them as official branding. These scenes are not evidence of actual client sessions or facilities. Original JPEG and MP4 assets remain archived in `assets/`.
