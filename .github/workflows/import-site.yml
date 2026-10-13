@@ -1,0 +1,44 @@
+name: Import Get Fit with JO website package
+on:
+  push:
+    paths:
+      - '.github/workflows/import-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Download verified website archive
+        env:
+          SOURCE_URL: https://at.adobe.com/I9TbqildKmkJdmfn
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error --retry 3 --max-time 120 "$SOURCE_URL" -o /tmp/getfitwithjo.zip
+          file /tmp/getfitwithjo.zip
+          unzip -t /tmp/getfitwithjo.zip >/dev/null
+          unzip -q /tmp/getfitwithjo.zip -d /tmp/getfit-extract
+          test -s /tmp/getfit-extract/getfitwithjo_improved/index.html
+          test -s /tmp/getfit-extract/getfitwithjo_improved/premium.css
+          test -s /tmp/getfit-extract/getfitwithjo_improved/assets/original-jpg-1.jpg
+      - name: Copy site and media into repository
+        run: |
+          set -euo pipefail
+          cp -a /tmp/getfit-extract/getfitwithjo_improved/. .
+          git add index.html enhancements.css premium.css site.js assets README.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then
+            echo "Website files already present"
+          else
+            git commit -m "Publish improved Get Fit with JO website and original media"
+            git push origin HEAD:main
+          fi
