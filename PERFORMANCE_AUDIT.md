@@ -18,6 +18,24 @@ Date: 2026-10-13. Site: https://yohannesmulugeta.github.io/GET-FIT-WITH-JO/
 
 Source: GitHub Actions `Website quality and Lighthouse audit` run #38460642150, based on actual deployed website. Lighthouse identified render-blocking resources and right-sizing of images as major mobile opportunities (estimates: ~1,473 ms and ~280 ms respectively). The diagnostics report opportunities, not guaranteed time savings.
 
+## After optimization — final verified live Lighthouse
+
+Source: [GitHub Actions Lighthouse audit run #38462279373](https://github.com/yohannesmulugeta/GET-FIT-WITH-JO/actions/runs/38462279373), October 13, 2026.
+
+| Area | Mobile | Desktop |
+|---|---:|---:|
+| Performance | **98** | **100** |
+| Accessibility | **100** | **100** |
+| Best practices | **100** | **100** |
+| SEO | **100** | **100** |
+| First Contentful Paint | 1.3 s | 0.2 s |
+| Largest Contentful Paint | **1.5 s** | **0.3 s** |
+| Speed Index | 2.5 s | 0.2 s |
+| Total Blocking Time | 160 ms | 0 ms |
+| Cumulative Layout Shift | 0 | 0 |
+
+Mobile Performance improved from 85 to 98; mobile LCP improved from 3.3 s to 1.5 s. These are one-run Lighthouse **lab** measurements and do not guarantee every real-world connection will match them. The final audit included the contrast/accessible-label corrections, and all four tested Lighthouse categories reached 100 on desktop.
+
 ## Fixes implemented
 
 1. Eliminate Google Fonts network requests and reliance on third-party resources at initial render.
@@ -46,4 +64,4 @@ All original customer photographs and MP4 videos remain unchanged in the source 
 
 `test_site.py` passes 18 static checks: assets, navigation anchors, HTML image attributes, accessible mobile menu controls, protected external links, canonical/SEO files, responsive CSS breakpoint coverage, safe video loading, and preserved colors. `node --check script.js` and CSS parser validation also passed. GitHub Actions runs real Lighthouse for both desktop and mobile against the deployed site.
 
-**These numbers are file sizes, not reported network/interaction measurements.** Live post-deployment Lighthouse scores are recorded in GitHub Actions audit logs and artifacts once the new deployment is complete. Physical iOS/Android devices, real Ethiopia mobile carriers, and keyboard/screen-reader end-to-end behavior should also be reviewed independently before treating the site as fully validated.
+**Asset-transfer comparisons are file sizes, not direct network or interaction measurements.** The final Lighthouse metrics and their artifact are documented above. Physical iOS/Android devices, real Ethiopia mobile carriers, and keyboard/screen-reader end-to-end behavior should also be reviewed independently before treating the site as fully validated.

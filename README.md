@@ -54,6 +54,24 @@ The previous version's live Lighthouse baseline (October 13, 2026):
 
 Lighthouse lab scores vary by run/network; test again after deployment and validate actual Ethiopian mobile connections separately.
 
+### Verified final Lighthouse result
+
+| Category | Mobile | Desktop |
+|---|---:|---:|
+| Performance | **98** | **100** |
+| Accessibility | **100** | **100** |
+| Best practices | **100** | **100** |
+| SEO | **100** | **100** |
+| FCP | 1.3 s | 0.2 s |
+| LCP | 1.5 s | 0.3 s |
+| Speed Index | 2.5 s | 0.2 s |
+| TBT | 160 ms | 0 ms |
+| CLS | 0 | 0 |
+
+Measured by Lighthouse in GitHub Actions run #38462279373. Run-to-run variation and real-world network differences remain.
+
+**Deployment compatibility:** Both the source `index.html` and published build include the same CSS inline because GitHub Pages has run both branch-based and Actions-based deployment jobs. When changing `styles.css`, synchronize the `<style id="site-css">` block in `index.html` before publishing. `build_site.py` keeps the published copy synchronized.
+
 ## Image and fact integrity
 
 - `joseph-*-fast.webp` files are **AI-assisted illustrative visual concepts** based on supplied Joseph photos. They are **not** documentary evidence of Joseph coaching any particular person at any location. Joseph must approve the likeness and usage before promotion.
