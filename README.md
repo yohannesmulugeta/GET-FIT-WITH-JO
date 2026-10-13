@@ -1,13 +1,25 @@
-# Get Fit with JO
+# Get Fit with JO — improved website
 
-Official website repository for Joseph Abraham's coaching website.
-
-## Deployment
-
-This repository is initialized for the complete website package. The site includes original coach images and video assets, plus `index.html`, `enhancements.css`, `premium.css`, and `site.js`.
-
-To publish with GitHub Pages, upload the contents of the supplied `getfitwithjo_improved` directory to the root of the `main` branch. In repository Settings > Pages select **Deploy from a branch**, `main`, `/ (root)`.
+Static, GitHub-ready website. Open `index.html` locally to preview. Deploy the contents of this folder to GitHub Pages, Cloudflare Pages, or Netlify. No build process required.
 
 ## Preserved
+- Original photographs and training videos (extracted byte-for-byte into `assets/`)
+- Original CSS brand colors and font choices
+- Existing coaching information, package prices, and WhatsApp number
 
-Original brand colors, images, videos and existing coaching content. Pricing, qualifications and social accounts must be checked with Joseph before promotion.
+## Improved
+- Functional keyboard-accessible mobile navigation
+- Responsive layout for mobile/tablet/desktop
+- Readable mobile pricing cards and WhatsApp package enquiry links
+- Better semantic metadata, focus behavior, touch targets and reduced-motion support
+- Videos no longer autoplay, reducing bandwidth usage; user-initiated playback
+- Working email and telephone links
+
+## Before publishing
+1. Confirm pricing, coaching qualifications and claims with Joseph.
+2. Replace social placeholders with verified profile URLs; generic links were intentionally disabled.
+3. Confirm permission for testimonial and video content.
+4. Add production domain, analytics and SEO canonical URL once known.
+5. Test real devices and deployed performance.
+
+No repository or live deployment was changed.

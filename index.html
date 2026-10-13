@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Get Fit with JO — Joseph Abraham, Sport Scientist &amp; Personal Trainer</title>
+<link href="assets/original-png-1.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --navy:#12213B;
+    --navy-dark:#0A1526;
+    --orange:#FF6A3D;
+    --teal:#17A398;
+    --offwhite:#F5F6F2;
+    --ink:#171B1F;
+    --muted:#5E6772;
+    --line:#E1E4E8;
+    --sans-head:'Space Grotesk',Arial,sans-serif;
+    --sans-body:'IBM Plex Sans',Calibri,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--sans-body);
+    color:var(--ink);
+    background:var(--offwhite);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3{font-family:var(--sans-head);margin:0;line-height:1.08;letter-spacing:-0.01em;}
+  p{margin:0;}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,21,38,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .logo{font-family:var(--sans-head);font-weight:700;font-size:19px;color:#fff;}
+  .logo span{color:var(--orange);}
+  nav.links{display:flex;gap:28px;}
+  nav.links a{color:#D9DEE6;font-size:14.5px;font-weight:500;transition:color .15s;}
+  nav.links a:hover{color:#fff;}
+  .nav-cta{
+    background:var(--orange);color:#fff;padding:10px 20px;border-radius:4px;
+    font-weight:600;font-size:14px;white-space:nowrap;
+  }
+  .nav-cta:hover{background:#ff7d54;}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--navy-dark);position:relative;overflow:hidden;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 0.95fr;align-items:stretch;min-height:640px;
+  }
+  .hero-copy{padding:88px 0 64px;position:relative;z-index:2;}
+  .hero-copy .wrap{padding-left:32px;padding-right:56px;}
+  .kicker{color:var(--teal);font-weight:600;font-size:15px;margin-bottom:18px;}
+  .hero h1{color:#fff;font-size:46px;font-weight:700;max-width:560px;}
+  .hero h1 em{font-style:normal;color:var(--orange);}
+  .hero-sub{color:#C7CDD6;font-size:17px;line-height:1.6;max-width:480px;margin-top:22px;}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:4px;
+    font-weight:600;font-size:15px;border:1.5px solid transparent;transition:transform .15s, background .15s;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--orange);color:#fff;}
+  .btn-primary:hover{background:#ff7d54;}
+  .btn-ghost{border-color:rgba(255,255,255,0.35);color:#fff;}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.06);}
+  .btn svg{width:18px;height:18px;flex:none;}
+
+  .hero-photo{
+    position:relative;background:var(--navy);
+    clip-path:polygon(14% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-photo img{
+    width:100%;height:100%;object-fit:cover;object-position:top center;
+    position:absolute;inset:0;
+  }
+  .hero-photo .tag{
+    position:absolute;left:30px;bottom:30px;background:var(--orange);color:#fff;
+    font-family:var(--sans-head);font-weight:700;font-size:14px;padding:10px 16px;border-radius:3px;
+    z-index:3;
+  }
+
+  /* stat band */
+  .stats{background:var(--navy);border-top:1px solid rgba(255,255,255,0.08);}
+  .stats .wrap{display:flex;justify-content:space-between;padding:26px 32px;flex-wrap:wrap;gap:20px;}
+  .stat{flex:1;min-width:150px;text-align:left;border-left:2px solid var(--orange);padding-left:16px;}
+  .stat:first-child{border-left:2px solid var(--orange);}
+  .stat b{display:block;font-family:var(--sans-head);font-size:26px;color:#fff;}
+  .stat span{color:#9CA6B2;font-size:13px;}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head p{color:var(--teal);font-weight:600;font-size:14.5px;margin-bottom:10px;}
+  .section-head h2{font-size:32px;color:var(--navy);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr 0.85fr;gap:48px;}
+  .about-photo{align-self:start;}
+  .about-photo img{border-radius:8px;width:100%;object-fit:cover;aspect-ratio:4/5;}
+  .about-photo .cap{margin-top:10px;color:var(--muted);font-size:12.5px;font-style:italic;}
+  .focus-list{list-style:none;margin:0;padding:0;}
+  .focus-list li{
+    display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);
+    font-size:15px;color:var(--navy);font-weight:500;
+  }
+  .focus-list li:first-child{padding-top:0;}
+  .focus-list li svg{width:16px;height:16px;flex:none;margin-top:3px;color:var(--orange);}
+  .about-text p{color:var(--ink);font-size:16.5px;line-height:1.75;max-width:620px;}
+  .about-text p + p{margin-top:20px;}
+  .about-text .story{color:var(--muted);font-style:italic;border-left:3px solid var(--teal);padding-left:20px;margin-top:28px;}
+
+  /* ---------- SERVICES (editorial list) ---------- */
+  .service-row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+    padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .service-row:first-child{border-top:1px solid var(--line);}
+  .service-name{font-family:var(--sans-head);font-weight:600;font-size:20px;color:var(--navy);min-width:280px;}
+  .service-desc{color:var(--muted);font-size:15px;flex:1;}
+  .service-tag{
+    font-size:12.5px;font-weight:600;color:var(--teal);border:1px solid var(--teal);
+    padding:5px 11px;border-radius:100px;white-space:nowrap;
+  }
+
+  /* audience chips */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  .chip{background:#fff;border:1px solid var(--line);color:var(--navy);font-size:13.5px;font-weight:500;padding:8px 16px;border-radius:100px;}
+
+  /* ---------- PRICING TABLE ---------- */
+  .price-table{width:100%;border-collapse:collapse;margin-top:8px;}
+  .price-table thead th{
+    background:var(--navy);color:#fff;text-align:left;font-family:var(--sans-head);
+    font-size:13.5px;font-weight:600;padding:16px 20px;
+  }
+  .price-table thead th:first-child{border-radius:6px 0 0 0;}
+  .price-table thead th:last-child{border-radius:0 6px 0 0;}
+  .price-table tbody td{padding:20px 20px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);vertical-align:top;}
+  .price-table tbody tr:nth-child(odd){background:rgba(23,163,152,0.05);}
+  .price-table .p-name{font-weight:600;color:var(--navy);font-family:var(--sans-head);font-size:16px;}
+  .price-table .p-amount{font-weight:700;color:var(--orange);font-family:var(--sans-head);font-size:19px;white-space:nowrap;}
+  .price-note{margin-top:20px;color:var(--muted);font-size:14px;font-style:italic;}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+  .step-num{font-family:var(--sans-head);font-size:15px;font-weight:700;color:var(--orange);margin-bottom:14px;}
+  .step h3{font-size:19px;color:var(--navy);margin-bottom:8px;}
+  .step p{color:var(--muted);font-size:14.5px;line-height:1.6;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;
+  }
+  .gallery-tile{
+    position:relative;border-radius:8px;overflow:hidden;background:var(--navy);
+    aspect-ratio:3/4;
+  }
+  .gallery-tile video, .gallery-tile img{
+    width:100%;height:100%;object-fit:cover;
+  }
+  .gallery-tile .badge{
+    position:absolute;left:10px;bottom:10px;background:rgba(10,21,38,0.75);color:#fff;
+    font-size:11px;font-weight:600;padding:5px 10px;border-radius:100px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .gallery-tile .badge svg{width:11px;height:11px;flex:none;}
+
+  /* ---------- RESULTS ---------- */
+  .results{background:var(--navy);color:#fff;}
+  .results .section-head p{color:var(--teal);}
+  .results .section-head h2{color:#fff;}
+  .quote-block{max-width:760px;}
+  .quote-mark{font-family:var(--sans-head);font-size:64px;color:var(--orange);line-height:1;margin-bottom:8px;}
+  .quote-block p.quote{font-size:20px;line-height:1.6;color:#E7EAEF;font-style:italic;}
+  .quote-attr{margin-top:22px;font-weight:600;color:var(--orange);font-family:var(--sans-head);font-size:15px;}
+  .quote-attr span{color:#9CA6B2;font-weight:400;font-style:italic;font-family:var(--sans-body);display:block;font-size:14px;margin-top:2px;}
+  .partner-note{margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.14);color:#B8C0CB;font-size:14.5px;max-width:640px;}
+  .partner-note b{color:#fff;}
+
+  /* ---------- FOLLOW ---------- */
+  .follow{background:var(--offwhite);}
+  .social-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;}
+  .social-item{
+    display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);
+    padding:14px 22px;border-radius:6px;font-weight:600;font-size:14.5px;color:var(--navy);
+    transition:border-color .15s;
+  }
+  .social-item:hover{border-color:var(--orange);}
+  .social-item svg{width:22px;height:22px;flex:none;color:var(--orange);}
+  .follow-note{margin-top:22px;color:var(--muted);font-size:14.5px;max-width:520px;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{background:var(--navy-dark);color:#fff;padding:72px 0 36px;}
+  .footer-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;}
+  footer h2{color:#fff;font-size:30px;max-width:420px;}
+  footer .lead{color:#B8C0CB;margin-top:16px;font-size:15.5px;max-width:420px;line-height:1.6;}
+  .contact-list{margin-top:32px;list-style:none;padding:0;}
+  .contact-list li{display:flex;align-items:center;gap:12px;padding:9px 0;color:#D9DEE6;font-size:14.5px;}
+  .contact-list li svg{width:17px;height:17px;color:var(--teal);flex:none;}
+  .foot-cta{margin-top:32px;}
+  .foot-bottom{
+    margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7C8794;font-size:12.5px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .nav-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;min-height:auto;}
+    .hero-copy{padding:48px 0 40px;}
+    .hero-copy .wrap{padding-right:32px;}
+    .hero h1{font-size:34px;}
+    .hero-photo{clip-path:none;height:360px;}
+    .stats .wrap{padding:24px 24px;}
+    .about-grid{grid-template-columns:1fr;gap:32px;}
+    .about-photo{max-width:220px;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .service-row{flex-direction:column;align-items:flex-start;gap:8px;}
+    .service-name{min-width:0;}
+    .steps{grid-template-columns:1fr;gap:28px;}
+    .footer-grid{grid-template-columns:1fr;gap:36px;}
+    section{padding:64px 0;}
+    .price-table{font-size:13px;}
+    .price-table thead th, .price-table tbody td{padding:12px 10px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .btn:hover{transform:none;}
+  }
+</style>
+<link href="enhancements.css" rel="stylesheet"/><meta content="Personal training, online fitness coaching and sport nutrition guidance with Get Fit with JO — Joseph Abraham in Addis Ababa and online worldwide." name="description"/><meta content="#0A1526" name="theme-color"/><meta name="theme-color" content="#0A1526"/><meta name="description" content="Personal training, online coaching and sports nutrition with Joseph Abraham in Addis Ababa and worldwide."/><link rel="stylesheet" href="premium.css"/></head>
+<body><a class="skip-link" href="#main-content">Skip to main content</a>
+<header>
+<div class="wrap nav">
+<div class="logo">GET FIT <span>WITH JO</span></div>
+<button aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation menu" class="mobile-menu-button" type="button">☰</button><nav aria-label="Main navigation" class="links" id="primary-navigation">
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#pricing">Pricing</a>
+<a href="#results">Results</a>
+<a href="#contact">Contact</a>
+</nav>
+<a class="nav-cta" href="https://wa.me/251986890425" rel="noopener" target="_blank">Message on WhatsApp</a>
+</div>
+</header>
+<section class="hero" id="main-content">
+<div class="hero-grid">
+<div class="hero-copy">
+<div class="wrap">
+<p class="kicker">Addis Ababa &amp; Online, Worldwide</p>
+<h1>Training built on 14 years of sport science, not guesswork.</h1>
+<p class="hero-sub">I'm Joseph Abraham, a sport scientist and nutritionist helping people move better, manage chronic conditions, and build lasting strength, whether we train at your home in Addis Ababa or online from anywhere in the world.</p>
+<div class="hero-ctas">
+<a class="btn btn-primary" href="https://wa.me/251986890425" rel="noopener" target="_blank">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.5C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm5.6 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5s.7 1.7.7 1.9c.1.1.1.3 0 .4-.3.6-.6.9-.9 1.3-.1.2-.3.3-.1.6.5.9 1.1 1.7 1.9 2.3.8.6 1.5.9 1.8 1 .3.1.4.1.6-.1.3-.4.7-1 .9-1.3.2-.3.4-.2.6-.1s1.6.7 1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"></path></svg>
+            Message on WhatsApp
+          </a>
+<a class="btn btn-ghost" href="#services">See services</a>
+</div>
+</div>
+</div>
+<div class="hero-photo">
+<img alt="Joseph Abraham, personal trainer and sport scientist" decoding="async" src="assets/original-jpg-1.jpg"/>
+<span class="tag">BSc. Sport Science</span>
+</div>
+</div>
+<div class="stats">
+<div class="wrap">
+<div class="stat"><b>14+</b><span>Years of experience</span></div>
+<div class="stat"><b>100s</b><span>Of clients trained</span></div>
+<div class="stat"><b>3</b><span>Countries reached online</span></div>
+<div class="stat"><b>4</b><span>Certifications in sport &amp; nutrition</span></div>
+</div>
+</div>
+</section>
+<section id="about">
+<div class="wrap about-grid">
+<div>
+<div class="section-head">
+<p>About</p>
+<h2>What I bring</h2>
+</div>
+<ul class="focus-list">
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Exercise science &amp; physiology</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Sport nutrition coaching</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Adaptive &amp; special-needs exercise</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Chronic disease support</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Weight &amp; body composition</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>Practical, personalized coaching</li>
+</ul>
+</div>
+<div class="about-photo">
+<img alt="Joseph Abraham" decoding="async" loading="lazy" src="assets/original-jpg-2.jpg"/>
+<p class="cap">Off the clock, same energy.</p>
+</div>
+<div class="about-text">
+<p>Nutritionist and personal trainer with over <strong>14 years of experience</strong> helping people improve their health, fitness, and quality of life. I specialize in working with people managing conditions such as diabetes, high blood pressure, and high cholesterol, as well as physically impaired individuals through adaptive exercise. I also coordinate exercise programs for children with special needs.</p>
+<p>I combine exercise science, nutrition, and practical coaching to create safe, personalized programs, and I stay consistent with follow-ups, progress tracking, and accountability, so you're never left alone after the workout.</p>
+<p class="story">My passion for sport started at home. My father played professional football in the Ethiopian Premier League in the 1980s, and growing up around that discipline shaped how I coach today: not just to help people look better, but to help them move better, manage their health, and build lasting confidence.</p>
+</div>
+</div>
+</section>
+<section style="background:#fff;">
+<div class="wrap">
+<div class="section-head">
+<p>In Session</p>
+<h2>Watch Joseph train</h2>
+</div>
+<div class="gallery-grid">
+<div class="gallery-tile">
+<video aria-label="Get Fit with JO training video" controls="" muted="" playsinline="" preload="none"><source src="assets/original-mp4-1.mp4" type="video/mp4"/></video>
+<span class="badge"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>Training clip</span>
+</div>
+<div class="gallery-tile">
+<video aria-label="Get Fit with JO training video" controls="" muted="" playsinline="" preload="none"><source src="assets/original-mp4-2.mp4" type="video/mp4"/></video>
+<span class="badge"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>Training clip</span>
+</div>
+<div class="gallery-tile">
+<video aria-label="Get Fit with JO training video" controls="" muted="" playsinline="" preload="none"><source src="assets/original-mp4-3.mp4" type="video/mp4"/></video>
+<span class="badge"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>Training clip</span>
+</div>
+<div class="gallery-tile">
+<video aria-label="Get Fit with JO training video" controls="" muted="" playsinline="" preload="none"><source src="assets/original-mp4-4.mp4" type="video/mp4"/></video>
+<span class="badge"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>Training clip</span>
+</div>
+<div class="gallery-tile">
+<video aria-label="Get Fit with JO training video" controls="" muted="" playsinline="" preload="none"><source src="assets/original-mp4-5.mp4" type="video/mp4"/></video>
+<span class="badge"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>Training clip</span>
+</div>
+<div class="gallery-tile">
+<img alt="Joseph Abraham" decoding="async" loading="lazy" src="assets/original-jpg-3.jpg"/>
+</div>
+</div>
+<p class="follow-note" style="margin-top:20px;">More of this, day by day, on Instagram, TikTok, Facebook, and Threads. Search "Get Fit with JO".</p>
+</div>
+</section>
+<section id="services" style="background:#fff;">
+<div class="wrap">
+<div class="section-head">
+<p>Services</p>
+<h2>What I coach</h2>
+</div>
+<div class="service-row">
+<div class="service-name">Private Personal Training</div>
+<div class="service-desc">One-on-one, home-to-home coaching in Addis Ababa. 60 minute sessions.</div>
+<div class="service-tag">In-person</div>
+</div>
+<div class="service-row">
+<div class="service-name">Online Personal Training</div>
+<div class="service-desc">Full coaching and programming, delivered remotely to clients anywhere.</div>
+<div class="service-tag">Online</div>
+</div>
+<div class="service-row">
+<div class="service-name">Sport Nutrition Coaching</div>
+<div class="service-desc">Personalized nutrition plans that work alongside your training goals.</div>
+<div class="service-tag">Add-on</div>
+</div>
+<div class="service-row">
+<div class="service-name">Chronic Disease Support</div>
+<div class="service-desc">Exercise programming for diabetes, high blood pressure, and high cholesterol.</div>
+<div class="service-tag">1:1</div>
+</div>
+<div class="service-row">
+<div class="service-name">Adaptive Exercise</div>
+<div class="service-desc">Modified training for physical impairments and different abilities.</div>
+<div class="service-tag">1:1 / Group</div>
+</div>
+<div class="service-row">
+<div class="service-name">Children's Sport &amp; Fitness</div>
+<div class="service-desc">Age-appropriate programs, including special-needs support, ages 8–18.</div>
+<div class="service-tag">1:1 / Group</div>
+</div>
+<div class="service-row">
+<div class="service-name">Corporate &amp; Community Wellness</div>
+<div class="service-desc">Group programs for residential compounds, teams, and organizations.</div>
+<div class="service-tag">Group</div>
+</div>
+<div style="margin-top:40px;">
+<p style="font-weight:600;color:var(--navy);font-size:14.5px;margin-bottom:12px;">Who these programs are built for</p>
+<div class="chip-row">
+<span class="chip">Busy professionals, 30–60</span>
+<span class="chip">Remote clients worldwide</span>
+<span class="chip">Adults managing chronic conditions</span>
+<span class="chip">Different abilities, all ages</span>
+<span class="chip">Children &amp; teens, 8–18</span>
+<span class="chip">Residential compounds &amp; teams</span>
+</div>
+</div>
+</div>
+</section>
+<section id="pricing">
+<div class="wrap">
+<div class="section-head">
+<p>Pricing</p>
+<h2>Packages</h2>
+</div>
+<table class="price-table">
+<thead>
+<tr><th>Package</th><th>Price</th><th>Pay-as-you-go</th><th>Details</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="p-name">Private Personal Training</td>
+<td class="p-amount">$218 / mo</td>
+<td>$21 / session</td>
+<td>3 sessions per week, home-to-home coaching, 60 minutes each.<a class="package-enquiry" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%20would%20like%20to%20ask%20about%20Private%20Personal%20Training." rel="noopener noreferrer" target="_blank">Enquire about this package →</a></td>
+</tr>
+<tr>
+<td class="p-name">Online Personal Training</td>
+<td class="p-amount">$160 / mo</td>
+<td>$16 / session</td>
+<td>3 sessions per week, coached remotely from anywhere.<a class="package-enquiry" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%20would%20like%20to%20ask%20about%20Online%20Personal%20Training." rel="noopener noreferrer" target="_blank">Enquire about this package →</a></td>
+</tr>
+<tr>
+<td class="p-name">Nutrition Coaching</td>
+<td class="p-amount">$60 / mo</td>
+<td>—</td>
+<td>Personalized nutrition guidance with a customized meal plan.<a class="package-enquiry" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%20would%20like%20to%20ask%20about%20Nutrition%20Coaching." rel="noopener noreferrer" target="_blank">Enquire about this package →</a></td>
+</tr>
+</tbody>
+</table>
+<p class="price-note">Adaptive exercise, children's programs, and corporate wellness are priced individually based on your needs and the level of support required.</p>
+</div>
+</section>
+<section style="background:#fff;">
+<div class="wrap">
+<div class="section-head">
+<p>How It Works</p>
+<h2>Getting started is simple</h2>
+</div>
+<div class="steps">
+<div class="step">
+<div class="step-num">01</div>
+<h3>Message me your goals</h3>
+<p>Reach out on WhatsApp or by phone and tell me what you're working with and what you want to achieve.</p>
+</div>
+<div class="step">
+<div class="step-num">02</div>
+<h3>Get a plan built around you</h3>
+<p>I design your training and nutrition approach around your body, your condition, and your schedule.</p>
+</div>
+<div class="step">
+<div class="step-num">03</div>
+<h3>Train, track, adjust</h3>
+<p>We train consistently, track progress together, and adjust the plan as you get stronger.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="results" id="results">
+<div class="wrap">
+<div class="section-head">
+<p>Results</p>
+<h2>Proof it works</h2>
+</div>
+<div class="quote-block">
+<div class="quote-mark">“</div>
+<p class="quote">Zelalem was 48 years old when we started training together at his home. At the time, he was at risk of developing diabetes and had high blood pressure. We've now worked together consistently for three years, focusing on structured exercise, fitness, and healthy lifestyle habits. He has made significant progress and is now in excellent physical shape.</p>
+<div class="quote-attr">Zelalem Habtegyorgos<span>Private training client, 3 years and counting</span></div>
+</div>
+<div class="partner-note">
+<b>Partnership in progress: Nohe Adey Abeba Compound.</b> Bringing group fitness and personal training to residents, with a focus on improving health, fitness, and overall well-being.
+    </div>
+</div>
+</section>
+<section class="follow">
+<div class="wrap">
+<div class="section-head">
+<p>Follow Along</p>
+<h2>Get Fit with JO</h2>
+</div>
+<div class="social-row">
+<div class="social-item social-unverified" title="Official profile link to be confirmed">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="3.6"></circle><circle cx="17.2" cy="6.8" r="1"></circle></svg>
+        Instagram
+      </div>
+<div class="social-item social-unverified" title="Official profile link to be confirmed">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M14 3c.3 2 1.7 3.6 4 3.9v2.6c-1.4 0-2.7-.4-3.9-1.2v6.1c0 3-2.4 5.4-5.4 5.4S3.3 17.4 3.3 14.4c0-2.9 2.3-5.3 5.2-5.4v2.7c-1.4.1-2.5 1.3-2.5 2.7 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.7V3h2.6z"></path></svg>
+        TikTok
+      </div>
+<div class="social-item social-unverified" title="Official profile link to be confirmed">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M13.5 21v-7h2.3l.4-2.8h-2.7V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.8H7.8V15h2.4v7h3.3z"></path></svg>
+        Facebook
+      </div>
+<div class="social-item social-unverified" title="Official profile link to be confirmed">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3c4.4 0 7 2.8 7 7.3 0 1.7-.4 4.9-2.6 7C14.7 19 13.2 20 11.6 20c-2.2 0-4-1.3-4-3.5 0-2.4 2.2-3.6 5.5-3.7 1.1 0 2 .1 2.7.3"></path><path d="M9 9.5C9.2 7.8 10.3 7 12 7c2 0 3 1.3 3 3.5v2.6"></path></svg>
+        Threads
+      </div>
+</div>
+<p class="follow-note">Search "Get Fit with JO" on any platform. New training tips, client transformations, community stories, and education drop regularly.</p>
+</div>
+</section>
+<footer id="contact">
+<div class="wrap">
+<div class="footer-grid">
+<div>
+<h2>Let's train together.</h2>
+<p class="lead">Ready to move better, get stronger, and feel healthier? Send a message and let's talk about your goals.</p>
+<div class="foot-cta">
+<a class="btn btn-primary" href="https://wa.me/251986890425" rel="noopener" target="_blank">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.5C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm5.6 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5s.7 1.7.7 1.9c.1.1.1.3 0 .4-.3.6-.6.9-.9 1.3-.1.2-.3.3-.1.6.5.9 1.1 1.7 1.9 2.3.8.6 1.5.9 1.8 1 .3.1.4.1.6-.1.3-.4.7-1 .9-1.3.2-.3.4-.2.6-.1s1.6.7 1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"></path></svg>
+            Message on WhatsApp
+          </a>
+</div>
+</div>
+<ul class="contact-list">
+<li><a href="tel:+251986890425">+251 986 890 425</a></li>
+<li><a href="mailto:josi1983ab@gmail.com">josi1983ab@gmail.com</a></li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Addis Ababa · Online Worldwide</li>
+<li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"></path></svg>Coaching in Amharic &amp; English</li>
+</ul>
+</div>
+<div class="foot-bottom">
+<span>© 2026 Get Fit with JO — Joseph Abraham</span>
+<span>BSc. Sport Science · Sport Nutritionist</span>
+</div>
+</div>
+</footer>
+<script defer="True" src="site.js"></script></body>
+</html>
