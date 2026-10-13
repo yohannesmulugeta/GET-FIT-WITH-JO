@@ -1,0 +1,55 @@
+name: Import redesigned Get Fit with JO website
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-redesign.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Retrieve and verify website release
+        env:
+          SOURCE_1: https://at.adobe.com/HIbW7Zi3bOQfxM8H
+          SOURCE_2: https://at.adobe.com/xpOadAUARQ7rzKW8
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/getfit-site
+          for url in "$SOURCE_1" "$SOURCE_2"; do
+            if curl --fail --location --silent --show-error --retry 2 --max-time 90 "$url" -o /tmp/getfit-release.png; then
+              if python3 - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/getfit-release.png').read_bytes()
+          mark=b'\nGETFIT_ZIP_V1\n'
+          if mark not in p: raise SystemExit(1)
+          zip_bytes=p.split(mark,1)[1]
+          if not zip_bytes.startswith(b'PK'): raise SystemExit(1)
+          Path('/tmp/getfit-site.zip').write_bytes(zip_bytes)
+          PY
+              then break; fi
+            fi
+          done
+          echo 'fe7d0b46eabd8f7d7456fff83896214d63fd885fcfa437bb5f351dee95af0531  /tmp/getfit-site.zip' | sha256sum --check
+          unzip -t /tmp/getfit-site.zip >/dev/null
+          unzip -q /tmp/getfit-site.zip -d /tmp/getfit-site
+          test -s /tmp/getfit-site/index.html
+          test -s /tmp/getfit-site/styles.css
+          test -s /tmp/getfit-site/assets/joseph-avatar.webp
+          test -s /tmp/getfit-site/assets/original-mp4-5.mp4
+      - name: Publish site files to main
+        run: |
+          set -euo pipefail
+          cp -a /tmp/getfit-site/. .
+          git add index.html styles.css script.js assets README.md robots.txt sitemap.xml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Redesign Get Fit with JO with coaching imagery and mobile-first layout'
+            git push origin HEAD:main
+          fi
