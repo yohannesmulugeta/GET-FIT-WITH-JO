@@ -14,11 +14,15 @@ DIST = ROOT / 'dist'
 source = (ROOT / 'index.html').read_text(encoding='utf-8')
 style = (ROOT / 'styles.css').read_text(encoding='utf-8')
 placeholder = '<link rel="stylesheet" href="styles.css">'
-if source.count(placeholder) != 1:
-    sys.exit('Expected one stylesheet link in the source HTML.')
-# HTML already has a high-priority, responsive preload for the LCP image.
-# Inline CSS eliminates a blocking stylesheet network round trip.
-result = source.replace(placeholder, '<style>\n'+style+'\n</style>')
+inline_css = '<style id="site-css">\\n' + style + '\\n</style>'
+# Source HTML also keeps CSS inlined so both legacy branch-based Pages and
+# Actions-based Pages deploy the same non-blocking design. Rebuild is idempotent.
+if source.count(placeholder) == 1:
+    result = source.replace(placeholder, inline_css)
+elif '<style id="site-css">' in source:
+    result = re.sub(r'<style id="site-css">.*?</style>', lambda _: inline_css, source, count=1, flags=re.DOTALL)
+else:
+    sys.exit('Expected the site CSS link or inlined site-css marker.')
 
 if DIST.exists():
     shutil.rmtree(DIST)
