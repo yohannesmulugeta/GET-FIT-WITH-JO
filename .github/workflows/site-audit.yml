@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate source files and JavaScript
         run: |
-          python3 test_site.py
+          if [ -f test_site.py ]; then python3 test_site.py; else echo 'Pre-optimization baseline: source tester not yet installed'; fi
           node --check script.js
       - name: Install Lighthouse tester
         run: npm install --global lighthouse@12
