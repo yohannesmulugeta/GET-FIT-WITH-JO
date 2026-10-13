@@ -14,7 +14,7 @@ DIST = ROOT / 'dist'
 source = (ROOT / 'index.html').read_text(encoding='utf-8')
 style = (ROOT / 'styles.css').read_text(encoding='utf-8')
 placeholder = '<link rel="stylesheet" href="styles.css">'
-inline_css = '<style id="site-css">\\n' + style + '\\n</style>'
+inline_css = '<style id="site-css">\n' + style + '\n</style>'
 # Source HTML also keeps CSS inlined so both legacy branch-based Pages and
 # Actions-based Pages deploy the same non-blocking design. Rebuild is idempotent.
 if source.count(placeholder) == 1:
