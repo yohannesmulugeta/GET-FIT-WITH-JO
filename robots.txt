@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yohannesmulugeta.github.io/GET-FIT-WITH-JO/sitemap.xml
