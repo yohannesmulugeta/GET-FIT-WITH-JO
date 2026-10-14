@@ -100,6 +100,45 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
 /* Extra-small-screen readability for experience credentials */
 @media(max-width:510px){.hero-trust{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-trust>div:nth-child(3){grid-column:1/-1;flex-direction:row;align-items:center;padding-top:10px!important;border-top:1px solid rgba(255,255,255,.1)}.hero-trust strong{font-size:12px}.hero-trust small{font-size:10px}}
 
+
+/* Coaching enquiry — responsive dual-channel contact form */
+.enquiry-panel{scroll-margin-top:110px;margin-top:65px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 22px 68px rgba(10,21,38,.075);overflow:hidden}
+.enquiry-intro{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:35px clamp(22px,5vw,58px);background:var(--navy);color:white}
+.enquiry-intro .eyebrow{color:#96DCD5;font-weight:700;margin:0 0 12px}
+.enquiry-intro h3{font-size:clamp(30px,3.3vw,45px);line-height:1.12;letter-spacing:-.04em;color:#fff;margin:0}
+.enquiry-intro h3 span{color:var(--orange)}
+.enquiry-intro p:not(.eyebrow){font-size:15px;max-width:550px;color:#DFE7EE;line-height:1.7;margin:14px 0 0}
+.enquiry-benefits{display:flex;flex-direction:column;gap:12px;flex:0 0 auto;border-left:1px solid rgba(255,255,255,.22);padding-left:29px;font-size:13px;color:#E2E9F0}
+.enquiry-benefits strong{color:#FFAC87;margin-right:9px}
+.enquiry-form{padding:clamp(22px,4vw,50px)}
+.enquiry-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 24px}
+.enquiry-field{display:flex;flex-direction:column;gap:9px;min-width:0}
+.enquiry-field-full{grid-column:1/-1}
+.enquiry-field label{font-size:14px;color:var(--deep);font-weight:700}
+.enquiry-field label span{color:#BA481F}
+.enquiry-field input,.enquiry-field select,.enquiry-field textarea{width:100%;min-width:0;border:1.5px solid #C6CFD7;border-radius:10px;padding:14px 15px;background:#FBFCFC;color:var(--deep);font:inherit;font-size:16px;line-height:1.5;transition:border-color .15s,box-shadow .15s}
+.enquiry-field textarea{resize:vertical;min-height:128px}
+.enquiry-field input:focus-visible,.enquiry-field select:focus-visible,.enquiry-field textarea:focus-visible,.enquiry-consent input:focus-visible,.enquiry-actions a:focus-visible,.enquiry-actions button:focus-visible{outline:3px solid rgba(23,163,152,.36);outline-offset:2px;border-color:var(--teal-text)}
+.enquiry-field input::placeholder,.enquiry-field textarea::placeholder{color:#637182;opacity:1}
+.enquiry-consent{display:flex;gap:12px;align-items:flex-start;margin:25px 0 23px;font-size:13px;color:#435162;line-height:1.65;cursor:pointer}
+.enquiry-consent input{flex:0 0 19px;width:19px;height:19px;margin:2px 0 0;accent-color:var(--teal-text)}
+.enquiry-consent a{color:var(--deep);font-weight:700;text-decoration:underline;text-decoration-color:var(--orange)}
+.enquiry-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
+.enquiry-actions .button{min-height:54px;min-width:225px;border:0;cursor:pointer;justify-content:center;text-align:center;font-family:inherit;white-space:normal}
+.enquiry-actions button:disabled{opacity:.58;cursor:wait;transform:none}
+.enquiry-whatsapp-button{color:#fff;background:var(--navy)}
+.enquiry-whatsapp-button:hover{box-shadow:0 16px 35px rgba(18,33,59,.2)}
+.enquiry-status{min-height:0;margin-top:15px;font-size:14px;line-height:1.65;font-weight:650}
+.enquiry-status:empty{display:none}
+.enquiry-status[data-state="success"]{color:#075D43}
+.enquiry-status[data-state="error"]{color:#8C301D}
+.enquiry-status[data-state="info"]{color:var(--navy)}
+.enquiry-footnote{font-size:12px;color:#586576;line-height:1.65;margin-top:17px;max-width:940px}
+.enquiry-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:760px){.enquiry-intro{align-items:flex-start;flex-direction:column;gap:23px}.enquiry-benefits{display:grid;grid-template-columns:repeat(3,1fr);width:100%;border-left:0;border-top:1px solid rgba(255,255,255,.22);padding:18px 0 0;gap:15px}.enquiry-benefits span{line-height:1.5}}
+@media(max-width:520px){.enquiry-panel{margin-top:40px;border-radius:17px}.enquiry-intro{padding:25px 22px}.enquiry-fields{grid-template-columns:1fr;gap:19px}.enquiry-field-full{grid-column:auto}.enquiry-benefits{display:flex;gap:7px;font-size:12px}.enquiry-actions{flex-direction:column}.enquiry-actions .button{width:100%;min-width:0}.enquiry-form{padding:24px 19px}}
+@media(prefers-reduced-motion:reduce){.enquiry-field input,.enquiry-field select,.enquiry-field textarea{transition:none}}
+
 </style>
   <script src="script.js" defer></script>
   <title>Get Fit with JO | Personal Coaching by Joseph Abraham</title>
@@ -295,7 +334,77 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
       </div>
     </section>
 
-    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="container contact-layout"><div><p class="eyebrow teal-eyebrow">09 / READY WHEN YOU ARE</p><h2 class="section-title" id="contact-title">Your stronger chapter <span>starts here.</span></h2><p>Whether you're looking for personal training in Addis Ababa or coaching online, send Joseph a message. Tell him a little about your goals and take it from there.</p><div class="contact-buttons"><a class="button button-orange" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27d%20like%20to%20learn%20more%20about%20Get%20Fit%20with%20JO." target="_blank" rel="noopener noreferrer">Message Joseph on WhatsApp <span aria-hidden="true">↗</span></a><a class="text-link dark-link" href="mailto:josi1983ab@gmail.com">Or send an email <span aria-hidden="true">→</span></a></div></div><div class="contact-card"><img src="assets/joseph-avatar-fast.webp" alt="Professional portrait illustration of Joseph Abraham" loading="lazy" width="196" height="196" decoding="async"><div><span>YOUR COACH</span><strong>Joseph Abraham</strong><p>Addis Ababa · Online worldwide<br>Coaching in Amharic &amp; English</p><a href="tel:+251986890425">+251 986 890 425 ↗</a></div></div></div></section>
+    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="container contact-layout"><div><p class="eyebrow teal-eyebrow">09 / READY WHEN YOU ARE</p><h2 class="section-title" id="contact-title">Your stronger chapter <span>starts here.</span></h2><p>Whether you're looking for personal training in Addis Ababa or coaching online, send Joseph a message. Tell him a little about your goals and take it from there.</p><div class="contact-buttons"><a class="button button-orange" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27d%20like%20to%20learn%20more%20about%20Get%20Fit%20with%20JO." target="_blank" rel="noopener noreferrer">Message Joseph on WhatsApp <span aria-hidden="true">↗</span></a><a class="text-link dark-link" href="#enquiry">Or use the enquiry form <span aria-hidden="true">→</span></a></div></div><div class="contact-card"><img src="assets/joseph-avatar-fast.webp" alt="Professional portrait illustration of Joseph Abraham" loading="lazy" width="196" height="196" decoding="async"><div><span>YOUR COACH</span><strong>Joseph Abraham</strong><p>Addis Ababa · Online worldwide<br>Coaching in Amharic &amp; English</p><a href="tel:+251986890425">+251 986 890 425 ↗</a></div></div></div><div class="container">
+      <div class="enquiry-panel" id="enquiry" aria-labelledby="enquiry-title">
+        <div class="enquiry-intro">
+          <div>
+            <p class="eyebrow teal-eyebrow">TELL US ABOUT YOUR GOALS</p>
+            <h3 id="enquiry-title">Start with a <span>conversation.</span></h3>
+            <p>One simple form, two ways to contact Joseph. Choose email or WhatsApp after completing your details.</p>
+          </div>
+          <div class="enquiry-benefits" aria-label="What happens next">
+            <span><strong>01.</strong> Share your goal</span>
+            <span><strong>02.</strong> Choose how to send</span>
+            <span><strong>03.</strong> Joseph can follow up</span>
+          </div>
+        </div>
+        <form id="coach-enquiry-form" class="enquiry-form" action="https://formsubmit.co/josi1983ab@gmail.com" data-email-endpoint="https://formsubmit.co/ajax/josi1983ab@gmail.com" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="_subject" value="Get Fit with JO — New Coaching Enquiry">
+          <input type="hidden" name="_template" value="table">
+          <div class="enquiry-honeypot" aria-hidden="true"><label for="enquiry-website">Leave this field blank</label><input type="text" id="enquiry-website" name="_honey" autocomplete="off" tabindex="-1"></div>
+          <div class="enquiry-fields">
+            <div class="enquiry-field">
+              <label for="enquiry-name">Full name <span aria-hidden="true">*</span></label>
+              <input id="enquiry-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="120" placeholder="Your full name" required>
+            </div>
+            <div class="enquiry-field">
+              <label for="enquiry-phone">Phone / WhatsApp number</label>
+              <input id="enquiry-phone" name="phone" type="tel" autocomplete="tel" maxlength="32" inputmode="tel" placeholder="+251 9...">
+            </div>
+            <div class="enquiry-field">
+              <label for="enquiry-email">Email address</label>
+              <input id="enquiry-email" name="email" type="email" autocomplete="email" maxlength="180" placeholder="you@example.com">
+            </div>
+            <div class="enquiry-field">
+              <label for="enquiry-service">Coaching you're interested in <span aria-hidden="true">*</span></label>
+              <select id="enquiry-service" name="service" required>
+                <option value="">Select a program</option>
+                <option value="Private Personal Training">Private Personal Training</option>
+                <option value="Online Personal Training">Online Personal Training</option>
+                <option value="Sport Nutrition Coaching">Sport Nutrition Coaching</option>
+                <option value="Chronic Disease Support">Chronic Disease Support</option>
+                <option value="Adaptive Exercise">Adaptive Exercise</option>
+                <option value="Children's Sport &amp; Fitness">Children's Sport &amp; Fitness</option>
+                <option value="Corporate &amp; Community Wellness">Corporate &amp; Community Wellness</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+            <div class="enquiry-field enquiry-field-full">
+              <label for="enquiry-location">How would you like to train?</label>
+              <select id="enquiry-location" name="training_preference">
+                <option value="Not sure yet">Not sure yet — let's discuss</option>
+                <option value="In person in Addis Ababa">In person in Addis Ababa</option>
+                <option value="Online, anywhere">Online, anywhere</option>
+                <option value="Group or corporate session">Group or corporate session</option>
+              </select>
+            </div>
+            <div class="enquiry-field enquiry-field-full">
+              <label for="enquiry-goal">What would you like to achieve? <span aria-hidden="true">*</span></label>
+              <textarea id="enquiry-goal" name="message" rows="4" minlength="10" maxlength="1000" placeholder="Tell Joseph about your fitness goals, available schedule, or questions. Please don't include private medical details." required></textarea>
+            </div>
+          </div>
+          <label class="enquiry-consent" for="enquiry-consent"><input id="enquiry-consent" name="contact_consent" type="checkbox" value="Yes" required><span>I agree to share these details to receive a reply from Joseph. Email submissions are handled by a third-party form service. Please don't include sensitive medical information. <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">Form service privacy information ↗</a></span></label>
+          <div class="enquiry-actions">
+            <button id="enquiry-email-button" class="button button-orange" type="submit">Send enquiry by email <span aria-hidden="true">↗</span></button>
+            <a id="enquiry-whatsapp-button" class="button enquiry-whatsapp-button" href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27d%20like%20to%20ask%20about%20coaching." target="_blank" rel="noopener noreferrer">Continue on WhatsApp <span aria-hidden="true">↗</span></a>
+          </div>
+          <p id="enquiry-status" class="enquiry-status" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p class="enquiry-footnote">Email requires a one-time inbox confirmation by Joseph before delivery is active. WhatsApp opens a prepared message that <strong>you must send yourself</strong>. Neither option stores enquiry data on this website.</p>
+          <noscript><p class="enquiry-footnote">With JavaScript turned off, the email button will use FormSubmit's secure submission page and the WhatsApp button will open a general chat.</p></noscript>
+        </form>
+      </div>
+    </div>
+    </section>
   </main>
   <footer class="site-footer"><div class="container footer-top"><a href="#top" class="brand">GET FIT <span>WITH JO<span class="brand-dot">.</span></span></a><p>Move with purpose. Train for life. <a href="about.html" class="footer-about-link">Meet Joseph →</a></p><a href="#top" class="back-to-top">Back to top ↑</a></div><div class="container footer-bottom"><p>© <span id="copyright-year">2026</span> Get Fit with JO. All rights reserved.</p><p>Personal training · Addis Ababa & online</p></div></footer>
 </body>

@@ -38,3 +38,82 @@ if ('IntersectionObserver' in window) {
     video.addEventListener('focus', () => displayPoster(video), {once:true});
   });
 } else deferredPosters.forEach(displayPoster);
+
+
+// Shared form for email and WhatsApp. Contact data is never stored locally.
+const coachingForm=document.querySelector('#coach-enquiry-form');
+if(coachingForm){
+  const status=coachingForm.querySelector('#enquiry-status');
+  const emailButton=coachingForm.querySelector('#enquiry-email-button');
+  const whatsappButton=coachingForm.querySelector('#enquiry-whatsapp-button');
+  const fields={
+    name:coachingForm.querySelector('#enquiry-name'),
+    phone:coachingForm.querySelector('#enquiry-phone'),
+    email:coachingForm.querySelector('#enquiry-email'),
+    service:coachingForm.querySelector('#enquiry-service'),
+    location:coachingForm.querySelector('#enquiry-location'),
+    goal:coachingForm.querySelector('#enquiry-goal'),
+  };
+  function setEnquiryStatus(message,state='info'){
+    status.textContent=message;
+    status.dataset.state=state;
+  }
+  function validateEnquiry(needsReplyContact){
+    if(!coachingForm.reportValidity())return false;
+    if(needsReplyContact&&!fields.email.value.trim()&&!fields.phone.value.trim()){
+      setEnquiryStatus('Please provide an email address or phone number so Joseph can reply.','error');
+      fields.email.focus();
+      return false;
+    }
+    return true;
+  }
+  whatsappButton.addEventListener('click',event=>{
+    if(!validateEnquiry(false)){
+      event.preventDefault();
+      return;
+    }
+    const message=[
+      'Hello Joseph! I would like to enquire about Get Fit with JO coaching.',
+      '',
+      'Name: '+fields.name.value.trim(),
+      'Phone: '+(fields.phone.value.trim()||'I will message you here'),
+      'Email: '+(fields.email.value.trim()||'Not provided'),
+      'Program: '+fields.service.value,
+      'Coaching preference: '+fields.location.value,
+      'My goals: '+fields.goal.value.trim(),
+    ].join('\n');
+    whatsappButton.href='https://wa.me/251986890425?text='+encodeURIComponent(message);
+    setEnquiryStatus('WhatsApp will open with your prepared message. Please press Send inside WhatsApp to finish.','info');
+  });
+  // Native POST action remains usable when JavaScript is unavailable.
+  if('fetch' in window){
+    coachingForm.addEventListener('submit',async event=>{
+      event.preventDefault();
+      if(!validateEnquiry(true))return;
+      if(coachingForm.querySelector('[name="_honey"]').value)return;
+      emailButton.disabled=true;
+      emailButton.setAttribute('aria-busy','true');
+      setEnquiryStatus('Submitting your email enquiry…','info');
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),18000);
+      try{
+        const response=await fetch(coachingForm.dataset.emailEndpoint,{
+          method:'POST',headers:{'Accept':'application/json'},
+          body:new FormData(coachingForm),signal:controller.signal,
+        });
+        if(!response.ok)throw new Error('The form service returned an error.');
+        const result=await response.json();
+        if(result.success!==true&&result.success!=='true')throw new Error('Form service did not confirm acceptance.');
+        coachingForm.reset();
+        whatsappButton.href='https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27d%20like%20to%20ask%20about%20coaching.';
+        setEnquiryStatus('Your enquiry was accepted by the email service. Joseph will receive submissions once he confirms the receiving email address.','success');
+      }catch(error){
+        setEnquiryStatus('Email submission could not be completed. Please try again, use WhatsApp, or contact Joseph directly at josi1983ab@gmail.com.','error');
+      }finally{
+        clearTimeout(timeout);
+        emailButton.disabled=false;
+        emailButton.removeAttribute('aria-busy');
+      }
+    });
+  }
+}
