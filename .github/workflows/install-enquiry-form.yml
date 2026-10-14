@@ -1,0 +1,51 @@
+name: Install coaching enquiry form
+on:
+  push:
+    paths: ['.github/workflows/install-enquiry-form.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Download and verify form update
+        env:
+          ARCHIVE_URL: https://at.adobe.com/XkpdIEpOGdepr7tj
+          ARCHIVE_SHA256: c716f5f2d09c5fe4ebf4e7da5281011964993c208acf60f7bce497c03e679721
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --max-time 120 "$ARCHIVE_URL" -o /tmp/contact-update.zip
+          echo "$ARCHIVE_SHA256  /tmp/contact-update.zip" | sha256sum -c -
+          unzip -tq /tmp/contact-update.zip
+          mkdir /tmp/enquiry-update
+          unzip -q /tmp/contact-update.zip -d /tmp/enquiry-update
+          for file in index.html about.html styles.css script.js test_site.py ENQUIRY_FORM_SETUP.md; do
+            test -s "/tmp/enquiry-update/$file"
+          done
+      - name: Install form and verify
+        run: |
+          set -euo pipefail
+          # Avoid overwriting concurrent manual edits to the six source files.
+          test "$(git hash-object index.html)" = "4cb55f368847c88664eb7ee8e861f673bf69a3b0"
+          test "$(git hash-object about.html)" = "7362fd7bdf1bf532e6ee0f633d8bc17b807c84a8"
+          test "$(git hash-object styles.css)" = "280c4a55d6d47899b5f1f6491d4ba27caa59afec"
+          test "$(git hash-object script.js)" = "b4d62d7aab6663b9da3503c269eb938d6b3c4f1c"
+          test "$(git hash-object test_site.py)" = "b84b2e16d55b21d67372328939f820fb579e0bdc"
+          cp /tmp/enquiry-update/{index.html,about.html,styles.css,script.js,test_site.py,ENQUIRY_FORM_SETUP.md} .
+          python3 test_site.py
+          node --check script.js
+          python3 build_site.py
+          test -s dist/index.html
+          grep -q 'id="coach-enquiry-form"' dist/index.html
+          grep -q 'id="site-css"' dist/index.html
+          git add index.html about.html styles.css script.js test_site.py ENQUIRY_FORM_SETUP.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add dual email and WhatsApp coaching enquiry form"
+          git push origin HEAD:main
