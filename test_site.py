@@ -88,15 +88,15 @@ check('All four colors preserved across pages', all(code in CSS for code in ['#1
 # Dual-channel contact form: validate the actual published structure and safe client flows.
 form_options=['Private Personal Training','Online Personal Training','Sport Nutrition Coaching','Chronic Disease Support','Adaptive Exercise',"Children's Sport &amp; Fitness",'Corporate &amp; Community Wellness']
 check('Coaching enquiry section exists and is linked', 'id="enquiry"' in HTML and 'id="coach-enquiry-form"' in HTML and 'href="index.html#enquiry"' in ABOUT)
-check('Email form has real FormSubmit endpoint', 'action="https://formsubmit.co/josi1983ab@gmail.com"' in HTML and 'data-email-endpoint="https://formsubmit.co/ajax/josi1983ab@gmail.com"' in HTML)
+check('Email form has real FormSubmit endpoint', 'action="https://formsubmit.co/josi1983ab@gmail.com"' in HTML and 'target="_blank" method="POST"' in HTML)
 check('WhatsApp enquiry uses actual contact', 'id="enquiry-whatsapp-button"' in HTML and 'https://wa.me/251986890425' in HTML)
 check('All seven coaching services in form', all(x in HTML[HTML.find('id="coach-enquiry-form"'):] for x in form_options))
 check('Form includes required identity, goal and consent', all(x in HTML for x in ['name="name"','name="phone"','name="email"','name="service"','name="message"','id="enquiry-consent"','required']))
 check('Spam honeypot, privacy and accessibility included', all(x in HTML for x in ['name="_honey"','role="status"','aria-live="polite"','https://formsubmit.co/privacy.pdf']))
-check('Email send uses status-verified AJAX with real errors', all(x in JS for x in ["coachingForm.addEventListener('submit'",'new FormData(coachingForm)','response.ok',"result.success",'catch(error)']))
+check('Email send uses native FormSubmit POST without blocked AJAX', all(x in JS for x in ["coachingForm.addEventListener('submit'",'validateEnquiry(true)', 'event.preventDefault()', 'secure email submission page']) and 'data-email-endpoint=' not in HTML)
 check('WhatsApp prefilled message requires user click and validation', all(x in JS for x in ["whatsappButton.addEventListener('click'",'encodeURIComponent(message)','validateEnquiry(false)','reportValidity()']))
 check('Email submit checks phone or email for reply', 'validateEnquiry(true)' in JS and 'fields.email.value.trim()' in JS and 'fields.phone.value.trim()' in JS)
-check('Provider confirmation before email delivery is documented', 'once he confirms the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
+check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
 
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))

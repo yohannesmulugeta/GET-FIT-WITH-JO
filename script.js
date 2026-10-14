@@ -85,35 +85,17 @@ if(coachingForm){
     whatsappButton.href='https://wa.me/251986890425?text='+encodeURIComponent(message);
     setEnquiryStatus('WhatsApp will open with your prepared message. Please press Send inside WhatsApp to finish.','info');
   });
-  // Native POST action remains usable when JavaScript is unavailable.
-  if('fetch' in window){
-    coachingForm.addEventListener('submit',async event=>{
+  // Standard form POST is more reliable than cross-origin AJAX for first-use
+  // activation and supports the provider's anti-spam CAPTCHA flow.
+  coachingForm.addEventListener('submit', event=>{
+    if(!validateEnquiry(true)){
       event.preventDefault();
-      if(!validateEnquiry(true))return;
-      if(coachingForm.querySelector('[name="_honey"]').value)return;
-      emailButton.disabled=true;
-      emailButton.setAttribute('aria-busy','true');
-      setEnquiryStatus('Submitting your email enquiry…','info');
-      const controller=new AbortController();
-      const timeout=setTimeout(()=>controller.abort(),18000);
-      try{
-        const response=await fetch(coachingForm.dataset.emailEndpoint,{
-          method:'POST',headers:{'Accept':'application/json'},
-          body:new FormData(coachingForm),signal:controller.signal,
-        });
-        if(!response.ok)throw new Error('The form service returned an error.');
-        const result=await response.json();
-        if(result.success!==true&&result.success!=='true')throw new Error('Form service did not confirm acceptance.');
-        coachingForm.reset();
-        whatsappButton.href='https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27d%20like%20to%20ask%20about%20coaching.';
-        setEnquiryStatus('Your enquiry was accepted by the email service. Joseph will receive submissions once he confirms the receiving email address.','success');
-      }catch(error){
-        setEnquiryStatus('Email submission could not be completed. Please try again, use WhatsApp, or contact Joseph directly at josi1983ab@gmail.com.','error');
-      }finally{
-        clearTimeout(timeout);
-        emailButton.disabled=false;
-        emailButton.removeAttribute('aria-busy');
-      }
-    });
-  }
+      return;
+    }
+    if(coachingForm.querySelector('[name="_honey"]').value){
+      event.preventDefault();
+      return;
+    }
+    setEnquiryStatus('Complete the secure email submission page that opens. You may need to finish CAPTCHA. Joseph must confirm the receiving email address before delivery is active.','info');
+  });
 }
