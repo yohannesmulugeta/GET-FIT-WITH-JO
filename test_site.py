@@ -64,6 +64,27 @@ check('Site can index', 'User-agent' in (ROOT/'robots.txt').read_text() and '<ur
 check('Core brand palette preserved', all(x in CSS for x in ['#12213B','#0A1526','#FF6A3D','#17A398','#F5F6F2']))
 check('All non-archival image files are under 70 KB', all(x.stat().st_size<70000 for x in (ROOT/'assets').glob('*-fast.webp')))
 
+# Full content restoration guard: preserve the original coaching offer in future redesigns.
+ABOUT = (ROOT/'about.html').read_text(encoding='utf-8') if (ROOT/'about.html').exists() else ''
+services = ['Private Personal Training','Online Personal Training','Sport Nutrition Coaching','Chronic Disease Support','Adaptive Exercise',"Children's Sport &amp; Fitness",'Corporate &amp; Community Wellness']
+check('Dedicated About page exists',bool(ABOUT) and 'My passion for sport' in ABOUT)
+check('Original sport science claim restored', 'Training built on 14 years of sport science, not guesswork.' in HTML)
+check('Experience and sports qualifications retained', all(x in HTML for x in ['BSc Sport Science','14 years','4 years']))
+check('All seven services appear', all(x in HTML for x in services), ', '.join(x for x in services if x not in HTML))
+check('Audience section restored', 'id="audiences"' in HTML and HTML.count('class="audience-tile"') == 6)
+check('Coaching package options restored', HTML.count('class="package-option"') == 3)
+check('Original three-step process preserved', all(x in HTML for x in ['Message me your goals','Get a plan built around you','Train, track, adjust']))
+check('Proof-of-work and social sections exist', 'id="results"' in HTML and 'id="social"' in HTML)
+check('No invented social profile URLs', all(x not in HTML for x in ['href="https://instagram.com"','href="https://tiktok.com"','href="https://facebook.com"']))
+check('Father football history restored', 'Ethiopian Premier League in the 1980s' in ABOUT)
+check('About page added to sitemap', 'about.html' in (ROOT/'sitemap.xml').read_text(encoding='utf-8'))
+p2 = SiteParser(); p2.feed(ABOUT)
+check('Dedicated About has exactly one H1 and unique IDs',p2.h1==1 and len(p2.ids)==len(set(p2.ids)))
+check('Dedicated About anchor targets work',all(v[1:] in p2.ids for v in p2.links if v.startswith('#') and len(v)>1))
+check('About page images exist and have dimensions', not p2.alt_missing and not p2.img_without_dimensions and all((ROOT / v).is_file() for v in p2.refs))
+check('Both pages have identical inline CSS', '<style id="site-css">' in HTML and '<style id="site-css">' in ABOUT and CSS.strip() in HTML and CSS.strip() in ABOUT)
+check('All four colors preserved across pages', all(code in CSS for code in ['#12213B','#FF6A3D','#17A398','#F5F6F2']))
+
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')

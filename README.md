@@ -98,3 +98,8 @@ Measured by Lighthouse in GitHub Actions run #38462279373. Run-to-run variation 
 - [ ] Test WhatsApp links using an actual mobile phone.
 - [ ] Review the experience on slow Ethiopian mobile data connections.
 - [ ] Add verified social accounts later if desired.
+
+## Restored coaching content (2026-10-14)
+The original sport-science statement, biography and family sports history, all seven services, six target audiences, package formats, client-progress example, social discovery and a dedicated About page have been restored.
+No archival photos or videos or brand colors were replaced. Confirm the 14-year versus four-year experience wording, pricing, testimonial publication permissions and official social handles with Joseph before advertising.
+See CONTENT_RESTORATION.md for the full provenance and confirmation list.
