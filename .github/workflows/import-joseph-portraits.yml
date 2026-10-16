@@ -1,0 +1,77 @@
+name: Import Joseph approved portrait images
+on:
+  push:
+    paths:
+      - '.github/workflows/import-joseph-portraits.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Download verified optimized portraits
+        env:
+          ARCHIVE_URL: https://at.adobe.com/CF4UhJiWhx1LRzHX
+          SHA256: bf6f81b543f0d6d2cbd3b2a901664a6518d37859165f8d835496ff23da676aac
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error --retry 3 --max-time 120 "$ARCHIVE_URL" -o /tmp/joseph-photos.zip
+          echo "$SHA256  /tmp/joseph-photos.zip" | sha256sum --check
+          unzip -tq /tmp/joseph-photos.zip
+          mkdir -p /tmp/joseph-photos
+          unzip -q /tmp/joseph-photos.zip -d /tmp/joseph-photos
+          for name in joseph-hero-fast.webp joseph-hero-mobile-fast.webp joseph-avatar-fast.webp joseph-about-fast.webp joseph-outdoor-fast.webp joseph-strength-fast.webp joseph-coaching-fast.webp joseph-nutrition-fast.webp joseph-belief-fast.webp getfit-social-preview.webp; do
+            test -s "/tmp/joseph-photos/assets/$name"
+          done
+      - name: Update image assets and descriptions without disturbing forms or styling
+        run: |
+          set -euo pipefail
+          cp -a /tmp/joseph-photos/assets/. assets/
+          python3 - <<'PY'
+          from pathlib import Path
+          new_alts = {
+            'Professional portrait illustration of Joseph Abraham': 'AI-assisted headshot of Joseph Abraham smiling',
+            'Professional hero portrait illustration of Joseph Abraham in a premium gym setting': 'AI-assisted gym portrait of Joseph smiling with arms crossed',
+            'AI-generated illustrative portrait of Joseph Abraham': 'AI-assisted portrait of Joseph leaning on gym equipment',
+            "AI-generated outdoor lifestyle image representing Joseph's coaching brand": 'AI-assisted outdoor fitness portrait of Joseph on a wooded deck',
+            'AI-generated depiction of a strength-training session': 'AI-assisted side-profile gym portrait of Joseph wearing headphones',
+            'AI-generated depiction of a one-to-one coaching conversation': 'AI-assisted gym portrait of Joseph leaning on training equipment',
+            'AI-generated healthy meal and nutrition lifestyle illustration': 'AI-assisted outdoor portrait of Joseph promoting an active lifestyle',
+            'AI-generated illustration of Joseph Abraham': 'AI-assisted focused gym portrait of Joseph wearing headphones',
+            'AI-generated illustrative avatar of Joseph Abraham': 'AI-assisted close-up portrait of Joseph Abraham smiling'
+          }
+          for filename in ('index.html','about.html'):
+              path = Path(filename)
+              old = path.read_text(encoding='utf-8')
+              updated = old
+              for before,after in new_alts.items():
+                  updated = updated.replace('alt="'+before+'"','alt="'+after+'"')
+              assert 'id="coach-enquiry-form"' in updated if filename=='index.html' else 'href="index.html#enquiry"' in updated
+              path.write_text(updated,encoding='utf-8')
+          readme=Path('README.md')
+          s=readme.read_text(encoding='utf-8')
+          if '## October 2026 approved portrait refresh' not in s:
+              s += "\n## October 2026 approved portrait refresh\n\nThe 4 new AI-assisted Joseph reference portraits were prepared for the website as 10 responsive, optimized WebP images. Hero, avatar, About, lifestyle, strength, program-card, philosophy, and share-preview slots have been updated using existing asset paths. The generated images are creative portraits, not documentation of real training sessions or clients. Brand styling, original video footage, client content, and WhatsApp/email enquiry features were preserved.\n"
+          readme.write_text(s,encoding='utf-8')
+          print('Updated images and accessibility descriptions.')
+          PY
+          python3 test_site.py
+          node --check script.js
+          python3 build_site.py
+          test -s dist/index.html
+          git add index.html about.html README.md assets/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then
+            echo "Already updated"
+          else
+            git commit -m "Refresh Joseph website portraits with optimized photo concepts"
+            git push origin HEAD:main
+          fi
