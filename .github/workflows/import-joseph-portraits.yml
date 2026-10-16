@@ -19,7 +19,7 @@ jobs:
       - name: Download verified optimized portraits
         env:
           ARCHIVE_URL: https://at.adobe.com/CF4UhJiWhx1LRzHX
-          SHA256: bf6f81b543f0d6d2cbd3b2a901664a6518d37859165f8d835496ff23da676aac
+          SHA256: 470a4a8812359340ddfd8c6486fbeb28bb365b9aec5257f89cd3a5d995c6b159
         run: |
           set -euo pipefail
           curl --fail --location --silent --show-error --retry 3 --max-time 120 "$ARCHIVE_URL" -o /tmp/joseph-photos.zip
