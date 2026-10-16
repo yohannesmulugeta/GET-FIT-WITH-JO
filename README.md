@@ -103,3 +103,7 @@ Measured by Lighthouse in GitHub Actions run #38462279373. Run-to-run variation 
 The original sport-science statement, biography and family sports history, all seven services, six target audiences, package formats, client-progress example, social discovery and a dedicated About page have been restored.
 No archival photos or videos or brand colors were replaced. Confirm the 14-year versus four-year experience wording, pricing, testimonial publication permissions and official social handles with Joseph before advertising.
 See CONTENT_RESTORATION.md for the full provenance and confirmation list.
+
+## October 2026 approved portrait refresh
+
+The 4 new AI-assisted Joseph reference portraits were prepared for the website as 10 responsive, optimized WebP images. Hero, avatar, About, lifestyle, strength, program-card, philosophy, and share-preview slots have been updated using existing asset paths. The generated images are creative portraits, not documentation of real training sessions or clients. Brand styling, original video footage, client content, and WhatsApp/email enquiry features were preserved.
