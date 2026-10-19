@@ -13,7 +13,24 @@ if(menuButton&&navigation){
   navigation.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
   document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
   document.addEventListener('click',e=>{if(!header.contains(e.target))setMenu(false)});
-  window.addEventListener('resize',()=>{if(window.innerWidth>900)setMenu(false)});
+  window.addEventListener('resize',()=>{if(window.innerWidth>1050)setMenu(false)});
+}
+if(navigation&&document.querySelector('#programs')){
+  const links=[...navigation.querySelectorAll('a[href^="#"]')];
+  const sections=[...document.querySelectorAll('main section[id]')];
+  const group={audiences:'programs',packages:'programs',process:'training'};
+  function updateCurrentSection(){
+    const threshold=(header?.offsetHeight||0)+100;
+    const visible=sections.filter(section=>section.getBoundingClientRect().top<=threshold).pop();
+    const current=group[visible?.id]||visible?.id;
+    links.forEach(link=>{
+      if(link.hash==='#'+current)link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll',updateCurrentSection,{passive:true});
+  window.addEventListener('resize',updateCurrentSection);
+  updateCurrentSection();
 }
 const copyright=document.querySelector('#copyright-year');
 if(copyright)copyright.textContent=String(new Date().getFullYear());
