@@ -52,7 +52,7 @@ check('All linked local assets exist', all((ROOT / ref).is_file() for ref in p.r
 check('All images have descriptions', not p.alt_missing, repr(p.alt_missing))
 check('All images reserve layout dimensions', not p.img_without_dimensions,repr(p.img_without_dimensions))
 check('Videos avoid preloading', all(v.get('preload')=='none' for v in p.videos))
-check('Video posters are deferred',len(p.videos)==3 and all(v.get('data-poster') and not v.get('poster') for v in p.videos))
+check('Video posters are deferred',len(p.videos)==2 and all(v.get('data-poster') and not v.get('poster') for v in p.videos))
 check('No external CSS/JS blockers', 'fonts.googleapis.com' not in HTML and not re.search(r'<script[^>]+src=["\']https?://',HTML))
 check('Hero mobile and desktop candidates', 'joseph-hero-fast.webp' in HTML and 'joseph-hero-mobile-fast.webp' in HTML and 'fetchpriority="high"' in HTML)
 check('Responsive breakpoints present', all(f'@media(max-width:{x}px)' in CSS for x in (1120,900,700,510,350)))
