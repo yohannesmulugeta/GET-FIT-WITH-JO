@@ -144,14 +144,16 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
 .footer-bottom a{color:#D4DBE3;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:4px}
 @media(max-width:1050px){#site-nav{gap:0}}
 
-/* October 2026 review-only gallery, transformation, FAQ and booking refinement */
-.jo-gallery-section{background:#fff}.jo-gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.jo-gallery-card{min-width:0;margin:0;overflow:hidden;border-radius:15px;background:var(--cream);border:1px solid var(--line)}.jo-gallery-card-tall{grid-column:span 1}.jo-gallery-card-wide{grid-column:span 2}.jo-gallery-image{height:295px;position:relative;overflow:hidden;background:var(--navy)}.jo-gallery-card-wide .jo-gallery-image{height:335px}.jo-gallery-image img{height:100%;width:100%;object-fit:cover;object-position:center 34%;transition:transform .3s}.jo-gallery-card:hover img{transform:scale(1.035)}.jo-reference-badge{position:absolute;left:12px;bottom:12px;right:12px;display:block;width:max-content;max-width:calc(100% - 24px);color:#fff;background:rgba(10,21,38,.94);border:1px solid rgba(255,255,255,.25);padding:8px 9px;border-radius:5px;font-size:10px;line-height:1.45;font-weight:800;letter-spacing:.05em}.jo-gallery-card figcaption{padding:18px 19px 21px}.jo-gallery-card figcaption strong{display:block;font-size:17px;color:var(--deep)}.jo-gallery-card figcaption span{display:block;font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.jo-gallery-note{font-size:12px;line-height:1.8;color:var(--muted);max-width:950px;margin:22px 0}.jo-gallery-note a{font-weight:700;text-decoration:underline;text-underline-offset:3px;color:var(--deep)}
-.jo-transformations-section{background:var(--cream)}.jo-transformation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.jo-transformation-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}.jo-transformation-image{height:330px;position:relative;background:var(--navy)}.jo-transformation-image img{width:100%;height:100%;object-fit:contain;background:#101c30}.jo-transformation-copy{padding:25px 28px 29px}.jo-transformation-copy>span{font-size:11px;letter-spacing:.12em;font-weight:800;color:var(--teal-text)}.jo-transformation-copy h3{color:var(--deep);font-size:26px;margin:11px 0}.jo-transformation-copy p{color:var(--muted);font-size:14px;line-height:1.8}.jo-transform-placeholder{height:330px;background:linear-gradient(130deg,#12213B,#243f50);color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center;gap:12px}.jo-transform-placeholder>span{display:grid;place-items:center;width:62px;height:62px;font-size:38px;line-height:1;border:2px dashed #7ECAC4;border-radius:50%;color:var(--orange)}.jo-transform-placeholder strong{font-size:23px;line-height:1.3}.jo-transform-placeholder small{font-size:13px;color:#C8D8E0}
+/* Get Fit with JO — editorial training gallery and coaching journey */
+.jo-gallery-section{background:#fff}.jo-gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.jo-gallery-card{margin:0;min-width:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:white;box-shadow:0 12px 27px rgba(10,21,38,.045)}.jo-gallery-image{height:315px;position:relative;overflow:hidden;background:var(--navy)}.jo-gallery-image img{width:100%;height:100%;object-fit:cover;object-position:center 32%;transition:transform .4s}.jo-gallery-card:hover img{transform:scale(1.04)}.jo-gallery-image:after{content:"";position:absolute;inset:40% 0 0;pointer-events:none;background:linear-gradient(0deg,rgba(10,21,38,.7),transparent)}.jo-gallery-index{position:absolute;z-index:1;left:15px;bottom:16px;font-size:11px;font-weight:800;letter-spacing:.1em;color:#fff}.jo-gallery-card figcaption{padding:21px}.jo-gallery-card figcaption strong{display:block;font-size:17px;line-height:1.35;color:var(--deep)}.jo-gallery-card figcaption span{display:block;font-size:12px;line-height:1.7;color:var(--muted);margin-top:7px}.jo-gallery-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:25px;padding-top:20px;border-top:1px solid var(--line)}.jo-gallery-bottom p{color:var(--muted);font-size:14px}
+.jo-transformations-section{background:var(--cream)}.jo-progress-showcase{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 22px 44px rgba(10,21,38,.05)}.jo-progress-visual{min-width:0;min-height:450px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px;background:var(--deep)}.jo-progress-frame{position:relative;isolation:isolate;overflow:hidden;min-width:0;display:flex;flex-direction:column;justify-content:space-between;padding:22px 18px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:radial-gradient(circle at 45% 38%,rgba(125,212,207,.18),transparent 52%),linear-gradient(145deg,#213A53,#0A1526)}.jo-progress-forward{background:radial-gradient(circle at 55% 33%,rgba(255,106,61,.2),transparent 52%),linear-gradient(145deg,#24535B,#12213B)}.jo-progress-frame:before{content:"";position:absolute;left:50%;top:45%;width:235px;height:235px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.15);border-radius:50%;box-shadow:0 0 0 38px rgba(255,255,255,.03),0 0 0 77px rgba(255,255,255,.02);z-index:-1}.jo-progress-frame:after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(0deg,rgba(6,15,29,.55),transparent);pointer-events:none;z-index:-1}.jo-progress-top{display:flex;align-items:center;gap:8px;color:#E7F0F3;font-size:10px;font-weight:800;letter-spacing:.1em}.jo-progress-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;flex-shrink:0}.jo-progress-forward .jo-progress-dot{background:var(--orange)}.jo-progress-logo{align-self:center;margin:auto;color:rgba(255,255,255,.24);font-weight:800;font-size:clamp(55px,8vw,115px);line-height:1;letter-spacing:-.12em}.jo-progress-logo span{color:var(--orange)}.jo-progress-bottom{display:flex;flex-direction:column;gap:10px;color:#fff}.jo-progress-bottom small{color:#94D0CC;font-size:10px;font-weight:800;letter-spacing:.14em}.jo-progress-bottom strong{font-size:clamp(15px,1.5vw,21px);line-height:1.4}.jo-progress-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(28px,4vw,55px)}.jo-progress-eyebrow{color:var(--teal-text);font-size:11px;font-weight:800;letter-spacing:.14em}.jo-progress-copy h3{margin:17px 0;font-size:clamp(30px,3vw,46px);color:var(--deep);line-height:1.13}.jo-progress-copy h3 span{color:var(--teal-text)}.jo-progress-copy>p{font-size:14px;line-height:1.85;color:var(--muted)}.jo-progress-values{width:100%;margin:24px 0;border-top:1px solid var(--line)}.jo-progress-values>div{display:flex;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid var(--line)}.jo-progress-values>div>span{flex:0 0 25px;color:var(--orange);font-size:18px}.jo-progress-values p{display:flex;flex-direction:column;margin:0}.jo-progress-values strong{font-size:13px;color:var(--deep)}.jo-progress-values small{font-size:12px;line-height:1.5;color:var(--muted);margin-top:3px}
+
 .jo-faq-section{background:#fff}.jo-faq-layout{display:grid;grid-template-columns:minmax(250px,.85fr) minmax(0,1.15fr);gap:clamp(35px,7vw,100px);align-items:start}.jo-faq-intro>.eyebrow{margin-bottom:20px}.jo-faq-intro>p:not(.eyebrow){color:var(--muted);font-size:16px;line-height:1.85;margin:20px 0 26px}.jo-faq-items{border-top:1px solid var(--line)}.jo-faq-items details{border-bottom:1px solid var(--line);padding:0}.jo-faq-items summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:22px 4px;font-weight:750;color:var(--deep);font-size:17px;line-height:1.45}.jo-faq-items summary::-webkit-details-marker{display:none}.jo-faq-items summary>span{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--cream);color:var(--teal-text);font-size:21px;font-weight:500}.jo-faq-items details[open] summary>span{transform:rotate(45deg)}.jo-faq-items details p{padding:0 36px 25px 4px;color:var(--muted);font-size:14px;line-height:1.9}.jo-faq-items summary:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 .jo-booking-guide{margin-top:55px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;border:1px solid #D2E2DF;border-radius:18px;background:#EBF5F1;padding:clamp(24px,3.5vw,44px)}.jo-booking-guide .eyebrow{margin-bottom:13px}.jo-booking-guide h3{color:var(--deep);font-size:clamp(27px,3vw,39px);line-height:1.15}.jo-booking-guide h3 span{color:var(--teal-text)}.jo-booking-guide p:not(.eyebrow){color:#455560;font-size:14px;line-height:1.8;margin-top:13px}.jo-booking-steps{list-style:none;margin:0;padding:0;display:grid;gap:11px}.jo-booking-steps li{display:flex;align-items:center;gap:16px;background:white;border:1px solid #D3E2E0;border-radius:9px;padding:14px 16px;font-size:14px;color:var(--deep);line-height:1.5}.jo-booking-steps strong{font-size:13px;color:var(--teal-text)}
-@media(max-width:1050px){.jo-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.jo-gallery-card-wide{grid-column:span 1}.jo-gallery-card-wide .jo-gallery-image,.jo-gallery-image{height:315px}}
-@media(max-width:700px){.jo-faq-layout,.jo-booking-guide{grid-template-columns:1fr}.jo-faq-layout{gap:32px}.jo-transformation-grid{grid-template-columns:1fr}.jo-gallery-grid{gap:12px}.jo-gallery-card-wide .jo-gallery-image,.jo-gallery-image{height:265px}.jo-gallery-card figcaption{padding:14px}.jo-gallery-card figcaption strong{font-size:14px}.jo-gallery-card figcaption span{font-size:11px}.jo-reference-badge{font-size:9px}.jo-booking-guide{margin-top:36px}}
-@media(max-width:440px){.jo-gallery-grid{grid-template-columns:1fr}.jo-gallery-card-wide .jo-gallery-image,.jo-gallery-image{height:315px}.jo-gallery-card figcaption strong{font-size:17px}.jo-gallery-card figcaption span{font-size:12px}.jo-transformation-image,.jo-transform-placeholder{height:265px}.jo-transformation-copy{padding:22px}.jo-faq-items summary{font-size:16px;padding:18px 2px}}
+
+@media(max-width:1100px){.jo-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.jo-gallery-image{height:315px}.jo-progress-showcase{grid-template-columns:1fr}.jo-progress-visual{min-height:345px}.jo-progress-frame{min-height:345px}.jo-progress-logo{font-size:90px}}
+@media(max-width:700px){.jo-faq-layout,.jo-booking-guide{grid-template-columns:1fr}.jo-faq-layout{gap:32px}.jo-gallery-grid{gap:12px}.jo-gallery-image{height:260px}.jo-gallery-card figcaption{padding:16px}.jo-gallery-card figcaption strong{font-size:15px}.jo-gallery-card figcaption span{font-size:11px}.jo-gallery-bottom{align-items:flex-start;flex-direction:column}.jo-progress-visual{min-height:290px;padding:10px}.jo-progress-frame{min-height:290px;padding:14px}.jo-progress-logo{font-size:70px}.jo-progress-copy{padding:30px 22px}.jo-booking-guide{margin-top:36px}}
+@media(max-width:440px){.jo-gallery-grid{grid-template-columns:1fr}.jo-gallery-image{height:325px}.jo-gallery-card figcaption strong{font-size:17px}.jo-gallery-card figcaption span{font-size:12px}.jo-progress-visual{min-height:250px;gap:8px}.jo-progress-frame{min-height:250px;padding:13px 10px}.jo-progress-top{font-size:9px}.jo-progress-logo{font-size:55px}.jo-progress-bottom strong{font-size:14px}.jo-faq-items summary{font-size:16px;padding:18px 2px}}
 @media(prefers-reduced-motion:reduce){.jo-gallery-image img,.jo-faq-items summary>span{transition:none}}
 </style>
   <script src="script.js" defer></script>
@@ -302,35 +304,33 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
       </div>
     </section>
 
-    <!-- Review-only gallery: external reference images MUST be replaced or licensed before merge. -->
     <section class="section jo-gallery-section" id="gallery" aria-labelledby="gallery-title">
-      <div class="container">
-        <div class="section-heading split-heading">
-          <div><p class="eyebrow teal-eyebrow">TRAINING GALLERY · DESIGN PREVIEW</p><h2 class="section-title" id="gallery-title">The moments behind <span>every strong habit.</span></h2></div>
-          <p>A space for Joseph's coaching photos, training sessions and community. The photographs below are temporary references from Coach Miki, not Get Fit with JO sessions.</p>
-        </div>
-        <div class="jo-gallery-grid">
-          <figure class="jo-gallery-card jo-gallery-card-tall" data-image-slot="gallery-01">
-            <div class="jo-gallery-image"><img src="https://coachmikiaddis.com/images/gallery-1.jpg" width="563" height="1000" loading="lazy" decoding="async" alt="Reference photo: Coach Miki guiding a gym client; not Joseph or a JO client"><span class="jo-reference-badge">REFERENCE PHOTO · COACH MIKI</span></div>
-            <figcaption><strong>One-to-one coaching</strong><span>Swap for Joseph working with a client</span></figcaption>
-          </figure>
-          <figure class="jo-gallery-card jo-gallery-card-tall" data-image-slot="gallery-02">
-            <div class="jo-gallery-image"><img src="https://coachmikiaddis.com/images/gallery-2.jpg" width="563" height="1000" loading="lazy" decoding="async" alt="Reference photo: Coach Miki supervising a gym session; not Joseph or a JO client"><span class="jo-reference-badge">REFERENCE PHOTO · COACH MIKI</span></div>
-            <figcaption><strong>Technique and support</strong><span>Swap for JO training or personal coaching</span></figcaption>
-          </figure>
-          <figure class="jo-gallery-card jo-gallery-card-wide" data-image-slot="gallery-03">
-            <div class="jo-gallery-image"><img src="https://coachmikiaddis.com/images/gallery-6.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="Reference photo: Coach Miki outdoor group; not a Get Fit with JO activity"><span class="jo-reference-badge">REFERENCE PHOTO · COACH MIKI</span></div>
-            <figcaption><strong>Community in motion</strong><span>Swap for JO group training photographs</span></figcaption>
-          </figure>
-          <figure class="jo-gallery-card jo-gallery-card-wide" data-image-slot="gallery-04">
-            <div class="jo-gallery-image"><img src="https://coachmikiaddis.com/images/gallery-5.jpg" width="1000" height="667" loading="lazy" decoding="async" alt="Reference photo: Coach Miki standing with a training partner at a gym; not a JO session"><span class="jo-reference-badge">REFERENCE PHOTO · COACH MIKI</span></div>
-            <figcaption><strong>Move with purpose</strong><span>Swap for JO's real training photography</span></figcaption>
-          </figure>
-        </div>
-        <p class="jo-gallery-note">Design-preview imagery from <a href="https://coachmikiaddis.com/" target="_blank" rel="noopener noreferrer">Coach Miki Addis</a>. The people pictured are not Joseph's clients. Replace these photos with owned or permission-cleared JO photography before publishing to the live website.</p>
-        <a class="text-link dark-link" href="#training">Watch Joseph's actual training videos <span aria-hidden="true">→</span></a>
-      </div>
-    </section>
+  <div class="container">
+    <div class="section-heading split-heading">
+      <div><p class="eyebrow teal-eyebrow">BEHIND THE TRAINING</p><h2 class="section-title" id="gallery-title">Every rep has <span>a purpose.</span></h2></div>
+      <p>Strength, control and consistency. A closer look at the movement and mindset behind the Get Fit with JO approach.</p>
+    </div>
+    <div class="jo-gallery-grid">
+      <figure class="jo-gallery-card" data-image-slot="gallery-01">
+        <div class="jo-gallery-image"><img src="assets/training-row-2026-poster.webp" loading="lazy" decoding="async" width="720" height="1280" alt="Still frame of barbell rowing exercise from Joseph's training footage"><span class="jo-gallery-index">01 / STRENGTH</span></div>
+        <figcaption><strong>Train with intention.</strong><span>Build strength through focused movement.</span></figcaption>
+      </figure>
+      <figure class="jo-gallery-card" data-image-slot="gallery-02">
+        <div class="jo-gallery-image"><img src="assets/training-floor-2026-poster.webp" loading="lazy" decoding="async" width="720" height="1280" alt="Still frame of barbell-supported plank exercise from Joseph's training footage"><span class="jo-gallery-index">02 / CONTROL</span></div>
+        <figcaption><strong>Own every movement.</strong><span>Good technique creates a stronger foundation.</span></figcaption>
+      </figure>
+      <figure class="jo-gallery-card" data-image-slot="gallery-03">
+        <div class="jo-gallery-image"><img src="assets/joseph-strength-fast.webp" loading="lazy" decoding="async" width="640" height="800" alt="Illustrative portrait of Joseph in a strength-training environment"><span class="jo-gallery-index">03 / DISCIPLINE</span></div>
+        <figcaption><strong>Consistency is the difference.</strong><span>Small efforts. Stronger habits.</span></figcaption>
+      </figure>
+      <figure class="jo-gallery-card" data-image-slot="gallery-04">
+        <div class="jo-gallery-image"><img src="assets/joseph-outdoor-fast.webp" loading="lazy" decoding="async" width="340" height="440" alt="Illustrative outdoor fitness portrait of Joseph"><span class="jo-gallery-index">04 / LIFESTYLE</span></div>
+        <figcaption><strong>Make movement part of life.</strong><span>Progress goes beyond the gym.</span></figcaption>
+      </figure>
+    </div>
+    <div class="jo-gallery-bottom"><p>Train with purpose. Move with confidence.</p><a class="text-link dark-link" href="#enquiry">Let's get started <span aria-hidden="true">→</span></a></div>
+  </div>
+</section>
 
     <section class="section process-section" id="process" aria-labelledby="process-title">
       <div class="container">
@@ -364,26 +364,39 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
       </div>
     </section>
 
-    <!-- Review-only reference example; never represent Coach Miki's clients as JO clients. -->
     <section class="section jo-transformations-section" id="transformations" aria-labelledby="transformations-title">
-      <div class="container">
-        <div class="section-heading split-heading">
-          <div><p class="eyebrow teal-eyebrow">CLIENT JOURNEYS · LAYOUT PREVIEW</p><h2 class="section-title" id="transformations-title">Progress looks different <span>for everyone.</span></h2></div>
-          <p>Real progress stories belong to the people who lived them. Joseph's own before-and-after stories will be featured here when photos and permission are available.</p>
+  <div class="container">
+    <div class="section-heading split-heading">
+      <div><p class="eyebrow teal-eyebrow">A JOURNEY WORTH SHOWING UP FOR</p><h2 class="section-title" id="transformations-title">Small steps. <span>Lasting change.</span></h2></div>
+      <p>Progress is personal. It's built through the choices you make, the effort you repeat and the support you receive along the way.</p>
+    </div>
+    <div class="jo-progress-showcase">
+      <div class="jo-progress-visual" role="img" aria-label="Branded illustration of a fitness journey from its starting point through consistent effort">
+        <div class="jo-progress-frame jo-progress-start" data-image-slot="progress-start">
+          <span class="jo-progress-top"><span aria-hidden="true" class="jo-progress-dot"></span> THE BEGINNING</span>
+          <span aria-hidden="true" class="jo-progress-logo">JO<span>.</span></span>
+          <span class="jo-progress-bottom"><small>01 / START</small><strong>Every journey starts somewhere.</strong></span>
         </div>
-        <div class="jo-transformation-grid">
-          <article class="jo-transformation-card" data-image-slot="transformation-example">
-            <div class="jo-transformation-image"><img src="https://coachmikiaddis.com/images/transformation-1.jpg" width="1000" height="1000" loading="lazy" decoding="async" alt="Coach Miki example transformation collage; this is not Joseph's work or a Get Fit with JO client"><span class="jo-reference-badge">COACH MIKI EXAMPLE · NOT A JO RESULT</span></div>
-            <div class="jo-transformation-copy"><span>DESIGN REFERENCE ONLY</span><h3>Space for a real JO transformation</h3><p>This illustrates the format only. Replace with a consenting JO client's before-and-after images and verified story before launch.</p></div>
-          </article>
-          <article class="jo-transformation-card jo-transformation-empty" data-image-slot="transformation-01">
-            <div class="jo-transform-placeholder" aria-label="Reserved space for consented client photographs"><span aria-hidden="true">+</span><strong>Your next real client story</strong><small>Before & after photography will appear here</small></div>
-            <div class="jo-transformation-copy"><span>READY FOR JO'S PHOTOGRAPHS</span><h3>Real training. Real progress.</h3><p>Add approved photos, the client's own words and an accurate time period. No invented results, body statistics or testimonials.</p></div>
-          </article>
+        <div class="jo-progress-frame jo-progress-forward" data-image-slot="progress-forward">
+          <span class="jo-progress-top"><span aria-hidden="true" class="jo-progress-dot"></span> THE JOURNEY</span>
+          <span aria-hidden="true" class="jo-progress-logo">JO<span>.</span></span>
+          <span class="jo-progress-bottom"><small>02 / GROW</small><strong>Keep showing up for yourself.</strong></span>
         </div>
-        <p class="jo-gallery-note">These are not evidence of Get Fit with JO client outcomes. Results vary, and client photographs require explicit publication permission.</p>
       </div>
-    </section>
+      <div class="jo-progress-copy">
+        <span class="jo-progress-eyebrow">THE GET FIT WITH JO APPROACH</span>
+        <h3>Become stronger, <span>one session at a time.</span></h3>
+        <p>There is no shortcut to a sustainable routine. Start where you are, follow a plan that works for you, and keep moving forward.</p>
+        <div class="jo-progress-values">
+          <div><span aria-hidden="true">↗</span><p><strong>Build your strength</strong><small>Move with intention and confidence.</small></p></div>
+          <div><span aria-hidden="true">◎</span><p><strong>Find your rhythm</strong><small>Make training work with real life.</small></p></div>
+          <div><span aria-hidden="true">✳</span><p><strong>Stay consistent</strong><small>Focus on habits you can maintain.</small></p></div>
+        </div>
+        <a class="button button-orange" href="#enquiry">Start your own journey <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section class="belief-section" aria-labelledby="belief-title"><div class="container belief-layout"><div class="belief-photo"><img src="assets/joseph-belief-fast.webp" loading="lazy" alt="AI-assisted focused gym portrait of Joseph wearing headphones" width="410" height="480" decoding="async"></div><div class="belief-copy"><p class="eyebrow">THE GET FIT WITH JO APPROACH</p><h2 id="belief-title">Not about being perfect.<br><span>About getting better.</span></h2><p>Real progress looks different for everyone. What matters is a plan you understand, support you can rely on and habits you can keep returning to.</p><a href="https://wa.me/251986890425?text=Hello%20Joseph%2C%20I%27m%20interested%20in%20starting%20a%20fitness%20plan." class="text-link light-link" rel="noopener noreferrer" target="_blank">Let's work on your goals <span aria-hidden="true">↗</span></a></div></div></section>
 
