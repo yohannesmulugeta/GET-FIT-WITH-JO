@@ -10,6 +10,7 @@ on:
       - 'styles.css'
       - 'test_site.py'
       - 'script.js'
+      - 'motion.js'
       - 'assets/**'
       - '.github/workflows/review-checks.yml'
 permissions:
@@ -24,6 +25,7 @@ jobs:
         run: python3 test_site.py
       - name: Validate browser JavaScript syntax
         run: node --check script.js
+          node --check motion.js
       - name: Build published site without deployment
         run: |
           python3 build_site.py
