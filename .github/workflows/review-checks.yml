@@ -30,7 +30,8 @@ jobs:
           test -s dist/index.html
           test -s dist/about.html
           test -s dist/assets/joseph-hero-mobile-fast.webp
-      - name: Confirm temporary images are explicitly labelled
+      - name: Confirm gallery and journey are ready for publication
         run: |
-          grep -q 'COACH MIKI EXAMPLE · NOT A JO RESULT' dist/index.html
-          grep -q 'REFERENCE PHOTO · COACH MIKI' dist/index.html
+          grep -q 'jo-progress-showcase' dist/index.html
+          grep -q 'assets/training-row-2026-poster.webp' dist/index.html
+          ! grep -Eqi '<img[^>]+src="https?://' dist/index.html
