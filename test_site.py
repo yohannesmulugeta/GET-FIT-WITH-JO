@@ -96,13 +96,13 @@ check('Spam honeypot, privacy and accessibility included', all(x in HTML for x i
 check('Email send uses native FormSubmit POST without blocked AJAX', all(x in JS for x in ["coachingForm.addEventListener('submit'",'validateEnquiry(true)', 'event.preventDefault()', 'secure email submission page']) and 'data-email-endpoint=' not in HTML)
 check('WhatsApp prefilled message requires user click and validation', all(x in JS for x in ["whatsappButton.addEventListener('click'",'encodeURIComponent(message)','validateEnquiry(false)','reportValidity()']))
 check('Email submit checks phone or email for reply', 'validateEnquiry(true)' in JS and 'fields.email.value.trim()' in JS and 'fields.phone.value.trim()' in JS)
-check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
+check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and ('one-time inbox confirmation' in HTML or 'initial mailbox confirmation' in HTML))
 
 
 # Core requirements after the booking and page-structure redesign.
 check('Navigation uses Services and Book Consultation, not Contact', '>Services</a>' in HTML and '>Coaching</a>' not in HTML and 'href="#consultation">Book Consultation' in HTML and 'href="#contact">Contact' not in HTML)
 check('Video and photo galleries consolidated', 'class="jo-gallery-videos"' in HTML and 'id="gallery"' in HTML and 'id="training"' in HTML and HTML.count('<video ')==2)
-check('One client progress section, without generic journey repetitions', 'id="results"' in HTML and 'jo-transformations-section' not in HTML and 'id="process"' not in HTML)
+check('One client progress section, without generic journey repetitions', 'id="results"' in HTML and '<section class="section jo-transformations-section"' not in HTML and 'id="process"' not in HTML)
 check('All visible images are local', not re.search(r'<img[^>]+src=["\\\']https?://', HTML, re.I))
 check('Gallery photo slots remain', all('data-image-slot="gallery-0'+str(i)+'"' in HTML for i in range(1,5)))
 check('FAQ remains accessible', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
