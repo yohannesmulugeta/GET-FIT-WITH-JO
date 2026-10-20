@@ -18,7 +18,7 @@ if(menuButton&&navigation){
 if(navigation&&document.querySelector('#programs')){
   const links=[...navigation.querySelectorAll('a[href^="#"]')];
   const sections=[...document.querySelectorAll('main section[id]')];
-  const group={audiences:'programs',packages:'programs',process:'training'};
+  const group={audiences:'programs',training:'gallery',enquiry:'consultation'};
   function updateCurrentSection(){
     const threshold=(header?.offsetHeight||0)+100;
     const visible=sections.filter(section=>section.getBoundingClientRect().top<=threshold).pop();
@@ -70,6 +70,8 @@ if(coachingForm){
     service:coachingForm.querySelector('#enquiry-service'),
     location:coachingForm.querySelector('#enquiry-location'),
     goal:coachingForm.querySelector('#enquiry-goal'),
+    preferredDate:coachingForm.querySelector('#enquiry-date'),
+    preferredTime:coachingForm.querySelector('#enquiry-time'),
   };
   function setEnquiryStatus(message,state='info'){
     status.textContent=message;
@@ -84,19 +86,23 @@ if(coachingForm){
     }
     return true;
   }
+  // The requested time is a preference; availability is confirmed by Joseph.
+  if(fields.preferredDate){const d=new Date();fields.preferredDate.min=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
   whatsappButton.addEventListener('click',event=>{
     if(!validateEnquiry(false)){
       event.preventDefault();
       return;
     }
     const message=[
-      'Hello Joseph! I would like to enquire about Get Fit with JO coaching.',
+      'Hello Joseph! I would like to request a personal consultation.',
       '',
       'Name: '+fields.name.value.trim(),
       'Phone: '+(fields.phone.value.trim()||'I will message you here'),
       'Email: '+(fields.email.value.trim()||'Not provided'),
       'Program: '+fields.service.value,
       'Coaching preference: '+fields.location.value,
+      'Preferred date: '+(fields.preferredDate.value||'Flexible'),
+      'Preferred time: '+(fields.preferredTime.value||'Flexible'),
       'My goals: '+fields.goal.value.trim(),
     ].join('\n');
     whatsappButton.href='https://wa.me/251986890425?text='+encodeURIComponent(message);
@@ -116,3 +122,37 @@ if(coachingForm){
     setEnquiryStatus('Complete the secure email submission page that opens. You may need to finish CAPTCHA. Joseph must confirm the receiving email address before delivery is active.','info');
   });
 }
+
+
+// Copy-on-click for bank sample cards and Joseph's displayed phone number.
+// All bank numbers are explicitly non-payable demonstration values.
+const paymentCopyStatus=document.querySelector('#payment-copy-status');
+document.querySelectorAll('.jo-payment-card').forEach(card=>{
+  card.addEventListener('click',async()=>{
+    const number=card.dataset.copyNumber;
+    if(!number)return;
+    let copied=false;
+    try{
+      if(navigator.clipboard&&window.isSecureContext){
+        await navigator.clipboard.writeText(number);
+        copied=true;
+      }else{
+        const input=document.createElement('textarea');
+        input.value=number;
+        input.style.position='fixed';
+        input.style.left='-9999px';
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        copied=document.execCommand('copy');
+        input.remove();
+      }
+    }catch(error){copied=false;}
+    card.classList.add('is-revealed');
+    const label=card.dataset.paymentLabel||'Payment';
+    const demo=card.classList.contains('is-demo');
+    if(paymentCopyStatus)paymentCopyStatus.textContent=copied
+      ?(label+(demo?' sample number copied. Not valid for payments.':' number copied. Verify the recipient before paying.'))
+      :'Could not copy. Please select the displayed number manually.';
+  });
+});

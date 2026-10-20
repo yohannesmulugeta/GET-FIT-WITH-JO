@@ -72,8 +72,8 @@ check('Original sport science claim restored', 'Training built on 14 years of sp
 check('Experience and sports qualifications retained', all(x in HTML for x in ['BSc Sport Science','14 years','4 years']))
 check('All seven services appear', all(x in HTML for x in services), ', '.join(x for x in services if x not in HTML))
 check('Audience section restored', 'id="audiences"' in HTML and HTML.count('class="audience-tile"') == 6)
-check('Coaching package options restored', HTML.count('class="package-option"') == 3)
-check('Original three-step process preserved', all(x in HTML for x in ['Message me your goals','Get a plan built around you','Train, track, adjust']))
+check('Duplicate package cards removed', 'class="package-option"' not in HTML and 'id="packages"' not in HTML)
+check('Duplicate process section removed', 'id="process"' not in HTML and 'id="consultation"' in HTML)
 check('Proof-of-work and social sections exist', 'id="results"' in HTML and 'id="social"' in HTML)
 check('No invented social profile URLs', all(x not in HTML for x in ['href="https://instagram.com"','href="https://tiktok.com"','href="https://facebook.com"']))
 check('Father football history restored', 'Ethiopian Premier League in the 1980s' in ABOUT)
@@ -87,7 +87,7 @@ check('All four colors preserved across pages', all(code in CSS for code in ['#1
 
 # Dual-channel contact form: validate the actual published structure and safe client flows.
 form_options=['Private Personal Training','Online Personal Training','Sport Nutrition Coaching','Chronic Disease Support','Adaptive Exercise',"Children's Sport &amp; Fitness",'Corporate &amp; Community Wellness']
-check('Coaching enquiry section exists and is linked', 'id="enquiry"' in HTML and 'id="coach-enquiry-form"' in HTML and 'href="index.html#enquiry"' in ABOUT)
+check('Consultation section exists and is linked', 'id="consultation"' in HTML and 'id="enquiry"' in HTML and 'id="coach-enquiry-form"' in HTML and 'href="index.html#consultation"' in ABOUT)
 check('Email form has real FormSubmit endpoint', 'action="https://formsubmit.co/josi1983ab@gmail.com"' in HTML and 'target="_blank" method="POST"' in HTML)
 check('WhatsApp enquiry uses actual contact', 'id="enquiry-whatsapp-button"' in HTML and 'https://wa.me/251986890425' in HTML)
 check('All seven coaching services in form', all(x in HTML[HTML.find('id="coach-enquiry-form"'):] for x in form_options))
@@ -96,17 +96,27 @@ check('Spam honeypot, privacy and accessibility included', all(x in HTML for x i
 check('Email send uses native FormSubmit POST without blocked AJAX', all(x in JS for x in ["coachingForm.addEventListener('submit'",'validateEnquiry(true)', 'event.preventDefault()', 'secure email submission page']) and 'data-email-endpoint=' not in HTML)
 check('WhatsApp prefilled message requires user click and validation', all(x in JS for x in ["whatsappButton.addEventListener('click'",'encodeURIComponent(message)','validateEnquiry(false)','reportValidity()']))
 check('Email submit checks phone or email for reply', 'validateEnquiry(true)' in JS and 'fields.email.value.trim()' in JS and 'fields.phone.value.trim()' in JS)
-check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
+check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and ('one-time inbox confirmation' in HTML or 'initial mailbox confirmation' in HTML))
 
 
-# Coaching gallery and journey content should use owned media and finished customer copy.
-check('Gallery, journey, FAQ and booking linked correctly', all('id="'+s+'"' in HTML for s in ('gallery','transformations','faq','booking')) and all('href="#'+s+'"' in HTML for s in ('gallery','faq')))
-check('All displayed images are local files', not re.search(r'<img[^>]+src=["\\\']https?://',HTML,re.I))
-check('No production-facing design instructions', all(s not in HTML.lower() for s in ('design preview','design reference','swap for','ready for jo','your next real client story','add approved photos','replace with a consenting')))
-check('Four training gallery slots exist',all('data-image-slot="gallery-0'+str(i)+'"' in HTML for i in range(1,5)))
-check('Journey is illustrative with no fabricated before/after results', all(s in HTML for s in ('jo-progress-showcase','data-image-slot="progress-start"','data-image-slot="progress-forward"','jo-progress-values')))
-check('Six accessible FAQs retained', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
-check('Booking retains contact methods', 'id="coach-enquiry-form"' in HTML and 'jo-booking-steps' in HTML)
+# Core requirements after the booking and page-structure redesign.
+check('Navigation uses Services and Book Consultation, not Contact', '>Services</a>' in HTML and '>Coaching</a>' not in HTML and 'href="#consultation">Book Consultation' in HTML and 'href="#contact">Contact' not in HTML)
+check('Video and photo galleries consolidated', 'class="jo-gallery-videos"' in HTML and 'id="gallery"' in HTML and 'id="training"' in HTML and HTML.count('<video ')==2)
+check('One client progress section, without generic journey repetitions', 'id="results"' in HTML and '<section class="section jo-transformations-section"' not in HTML and 'id="process"' not in HTML)
+check('All visible images are local', not re.search(r'<img[^>]+src=["\\\']https?://', HTML, re.I))
+check('Gallery photo slots remain', all('data-image-slot="gallery-0'+str(i)+'"' in HTML for i in range(1,5)))
+check('FAQ remains accessible', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
+check('Consultation request includes date, time and dual channels', all(s in HTML for s in ('id="enquiry-date"','id="enquiry-time"','name="preferred_date"','name="preferred_time"','id="enquiry-email-button"','id="enquiry-whatsapp-button"')))
+check('Preferred consultation timing reaches WhatsApp', 'fields.preferredDate.value' in JS and 'fields.preferredTime.value' in JS)
+check('No instant booking promise', 'not an instant booking' in HTML and 'confirmed personally by Joseph' in HTML)
+check('Social platforms include requested FB and TikTok', 'id=61594191249952' in HTML and '@getfitwithjo1' in HTML and 'https://www.linkedin.com/' in HTML and '>Threads</strong>' not in HTML)
+check('Phone is visible and callable', 'class="header-phone"' in HTML and 'class="jo-mobile-actions"' in HTML and 'href="tel:+251986890425"' in HTML)
+check('Payment logos exist locally', all((ROOT/'assets'/s).exists() for s in ('payment-cbe.png','payment-abyssinia.png','payment-telebirr.svg')))
+check('Demo payment accounts are explicitly non-payable', HTML.count('SAMPLE · NOT FOR PAYMENT')==2 and 'data-copy-number="0000000000000"' in HTML and 'data-copy-number="0000000000001"' in HTML)
+check('telebirr number uses Joseph contact and is unverified', 'data-copy-number="0986890425"' in HTML and 'has not been verified as a receiving account' in HTML)
+check('Payment copy functionality exists', 'navigator.clipboard' in JS and 'payment-copy-status' in JS)
+check('No unfinished placeholders or third-party media', all(s not in HTML.lower() for s in ('design preview','coach miki','swap for','add approved photos','your next real client story')))
+
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
