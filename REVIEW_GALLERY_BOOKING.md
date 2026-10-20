@@ -1,33 +1,18 @@
-# Get Fit with JO — gallery and booking review branch
+# Get Fit with JO — Training gallery and coaching journey
 
-This is a **draft implementation** intended to be reviewed before merging into `main`.
+The website gallery uses existing JO media: two actual training video stills and two illustrative JO portraits already in the repository. The coaching journey uses two branded visual frames and intentionally makes no unsupported claims about specific clients or transformations.
 
-## Added
-1. Four-card responsive training photo gallery.
-2. Reference transformation image and empty JO client-results card.
-3. Six FAQs using accessible native `<details>` elements.
-4. Clear three-step coaching enquiry guidance above the existing email/WhatsApp form.
-5. Responsive design polish in the original navy/orange/teal identity.
-
-## Temporary third-party photographs: NOT CLEARED FOR PRODUCTION
-The new photo cards load five Coach Miki Addis photographs directly from `https://coachmikiaddis.com/images/` **as external references** (no images have been generated, downloaded, or copied into the repository). All carry persistent attribution and explicitly say they do not show JO or his clients. This is a **design preview only**. Do not merge or deploy the branch until Joseph supplies owned photographs or obtains appropriate reuse permission. Referencing external photos does not grant any license and hotlinking may stop working.
-
-| New slot | Temporary source | Final JO replacement |
+## Reusable slots
+| Section slot | Current source | Intended photography |
 | --- | --- | --- |
-| `gallery-01` | `gallery-1.jpg` | Joseph coaching a private client |
-| `gallery-02` | `gallery-2.jpg` | JO technique or gym photograph |
-| `gallery-03` | `gallery-6.jpg` | JO group/community training |
-| `gallery-04` | `gallery-5.jpg` | JO stretching or training session |
-| `transformation-example` | `transformation-1.jpg` | Approved JO client before/after photos |
-| `transformation-01` | No photo | Additional approved JO client story |
+| `gallery-01` | `assets/training-row-2026-poster.webp` | Strength training |
+| `gallery-02` | `assets/training-floor-2026-poster.webp` | Movement technique |
+| `gallery-03` | `assets/joseph-strength-fast.webp` | Strength or coaching portrait |
+| `gallery-04` | `assets/joseph-outdoor-fast.webp` | Fitness and lifestyle |
+| `progress-start`, `progress-forward` | CSS brand illustrations | Consented photos with verified context |
 
-**Replacement:** locate `data-image-slot="gallery-01"` etc. in `index.html`, replace the nearby external `<img src>` with local optimized files under `assets/`, update widths, heights and alt text, remove reference badges and temporary disclaimer once everything is verified. The asset whitelist in `build_site.py` copies locally referenced files automatically. Do not reuse source content or client outcome claims.
+To change gallery imagery, edit the local image `src` and corresponding `alt`, `width`, and `height` attributes in `index.html`. Use optimized local WebP under `assets/`. The published build includes locally referenced files automatically. For client result pictures, obtain explicit permission before publication and avoid inventing outcomes.
 
-## Required checks before release
-- Confirm client photo ownership, explicit consent, original before-and-after context, and accuracy.
-- Confirm Joseph's current service rates, schedules, coaching locations, payment methods and contact details.
-- Activate and test the FormSubmit email destination with Joseph (see `ENQUIRY_FORM_SETUP.md`).
-- Run `python test_site.py`, `node --check script.js`, and `python build_site.py`; visually review small Android widths, desktop and keyboard navigation.
-- Check slow mobile connections in Ethiopia after using locally optimized replacement photos.
+Core brand palette, existing homepage portraits, programs, two training videos, FAQ and enquiry flows remain unchanged. Check the FormSubmit email activation with Joseph before relying on it.
 
-**Existing hero photography, program text, training videos, About page, contact methods and main-branch deployment remain intact.**
+Run `python3 test_site.py`, `node --check script.js`, and `python3 build_site.py` before deployment.
