@@ -17,7 +17,7 @@ The new photo cards load five Coach Miki Addis photographs directly from `https:
 | `gallery-01` | `gallery-1.jpg` | Joseph coaching a private client |
 | `gallery-02` | `gallery-2.jpg` | JO technique or gym photograph |
 | `gallery-03` | `gallery-6.jpg` | JO group/community training |
-| `gallery-04` | `gallery-wide-2.jpg` | JO stretching or training session |
+| `gallery-04` | `gallery-5.jpg` | JO stretching or training session |
 | `transformation-example` | `transformation-1.jpg` | Approved JO client before/after photos |
 | `transformation-01` | No photo | Additional approved JO client story |
 
