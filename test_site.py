@@ -98,6 +98,15 @@ check('WhatsApp prefilled message requires user click and validation', all(x in 
 check('Email submit checks phone or email for reply', 'validateEnquiry(true)' in JS and 'fields.email.value.trim()' in JS and 'fields.phone.value.trim()' in JS)
 check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
 
+
+# Review branch: new sections must be present, navigable, and clearly temporary.
+check('Gallery, transformations, FAQ and booking are linked correctly', all(('id="'+s+'"') in HTML for s in ('gallery','transformations','faq','booking')) and all(('href="#'+s+'"') in HTML for s in ('gallery','faq')))
+check('Preview photos explicitly credited to Coach Miki', HTML.count('REFERENCE PHOTO · COACH MIKI')==4 and 'COACH MIKI EXAMPLE · NOT A JO RESULT' in HTML)
+check('No transformation results attributed to JO', 'this is not Joseph' in HTML.lower() and 'Replace with a consenting JO client' in HTML)
+check('FAQ native disclosure is accessible', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
+check('Booking keeps existing email and WhatsApp form', 'id="jo-not-used"' not in HTML and 'id="coach-enquiry-form"' in HTML and 'jo-booking-steps' in HTML)
+check('Image sources are external reference URLs, not copied assets', HTML.count('https://coachmikiaddis.com/images/')==5 and 'data-image-slot="gallery-01"' in HTML)
+
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
