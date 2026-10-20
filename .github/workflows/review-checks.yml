@@ -30,8 +30,10 @@ jobs:
           test -s dist/index.html
           test -s dist/about.html
           test -s dist/assets/joseph-hero-mobile-fast.webp
-      - name: Confirm gallery and journey are ready for publication
+      - name: Check consultation, social and payment content
         run: |
-          grep -q 'jo-progress-showcase' dist/index.html
+          grep -q 'id="consultation"' dist/index.html
+          grep -q 'id="enquiry-date"' dist/index.html
+          grep -q 'payment-telebirr.svg' dist/index.html
           grep -q 'assets/training-row-2026-poster.webp' dist/index.html
           ! grep -Eqi '<img[^>]+src="https?://' dist/index.html
