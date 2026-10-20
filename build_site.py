@@ -22,7 +22,7 @@ for name in ('index.html','about.html'):
     else:sys.exit('Expected main CSS for '+name)
     (DIST/name).write_text(output,encoding='utf-8')
     allpages.append(output)
-for name in ('script.js','robots.txt','sitemap.xml'):
+for name in ('script.js','motion.js','robots.txt','sitemap.xml'):
     shutil.copy2(ROOT/name,DIST/name)
 (DIST/'assets').mkdir()
 names=set()
