@@ -1,0 +1,36 @@
+name: Review Get Fit with JO updates
+on:
+  push:
+    branches:
+      - feat/gallery-faq-booking-review-20261020
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'about.html'
+      - 'styles.css'
+      - 'test_site.py'
+      - 'script.js'
+      - 'assets/**'
+      - '.github/workflows/review-checks.yml'
+permissions:
+  contents: read
+jobs:
+  source-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run source integrity tests
+        run: python3 test_site.py
+      - name: Validate browser JavaScript syntax
+        run: node --check script.js
+      - name: Build published site without deployment
+        run: |
+          python3 build_site.py
+          test -s dist/index.html
+          test -s dist/about.html
+          test -s dist/assets/joseph-hero-mobile-fast.webp
+      - name: Confirm temporary images are explicitly labelled
+        run: |
+          grep -q 'COACH MIKI EXAMPLE · NOT A JO RESULT' dist/index.html
+          grep -q 'REFERENCE PHOTO · COACH MIKI' dist/index.html
