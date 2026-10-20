@@ -99,14 +99,14 @@ check('Email submit checks phone or email for reply', 'validateEnquiry(true)' in
 check('Provider confirmation before email delivery is documented', 'must confirm the receiving email address' in JS and 'one-time inbox confirmation' in HTML)
 
 
-# Review branch: new sections must be present, navigable, and clearly temporary.
-check('Gallery, transformations, FAQ and booking are linked correctly', all(('id="'+s+'"') in HTML for s in ('gallery','transformations','faq','booking')) and all(('href="#'+s+'"') in HTML for s in ('gallery','faq')))
-check('Preview photos explicitly credited to Coach Miki', HTML.count('REFERENCE PHOTO · COACH MIKI')==4 and 'COACH MIKI EXAMPLE · NOT A JO RESULT' in HTML)
-check('No transformation results attributed to JO', 'this is not joseph' in HTML.lower() and 'Replace with a consenting JO client' in HTML)
-check('FAQ native disclosure is accessible', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
-check('Booking keeps existing email and WhatsApp form', 'id="jo-not-used"' not in HTML and 'id="coach-enquiry-form"' in HTML and 'jo-booking-steps' in HTML)
-check('Image sources are external reference URLs, not copied assets', HTML.count('https://coachmikiaddis.com/images/')==5 and 'data-image-slot="gallery-01"' in HTML)
-
+# Coaching gallery and journey content should use owned media and finished customer copy.
+check('Gallery, journey, FAQ and booking linked correctly', all('id="'+s+'"' in HTML for s in ('gallery','transformations','faq','booking')) and all('href="#'+s+'"' in HTML for s in ('gallery','faq')))
+check('All displayed images are local files', not re.search(r'<img[^>]+src=["\\\']https?://',HTML,re.I))
+check('No production-facing design instructions', all(s not in HTML.lower() for s in ('design preview','design reference','swap for','ready for jo','your next real client story','add approved photos','replace with a consenting')))
+check('Four training gallery slots exist',all('data-image-slot="gallery-0'+str(i)+'"' in HTML for i in range(1,5)))
+check('Journey is illustrative with no fabricated before/after results', all(s in HTML for s in ('jo-progress-showcase','data-image-slot="progress-start"','data-image-slot="progress-forward"','jo-progress-values')))
+check('Six accessible FAQs retained', 'class="jo-faq-items"' in HTML and HTML.count('<details>')==6 and HTML.count('<summary>')==6)
+check('Booking retains contact methods', 'id="coach-enquiry-form"' in HTML and 'jo-booking-steps' in HTML)
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
