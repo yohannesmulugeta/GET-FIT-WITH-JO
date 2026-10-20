@@ -113,3 +113,12 @@ The 4 new AI-assisted Joseph reference portraits were prepared for the website a
 The two featured clips are 12-second edits from supplied `IMG_1544.MOV` (5–17 seconds) and `IMG_1573.MOV` (18–30 seconds). They were converted from HDR HEVC to SDR H.264 MP4 at 720 × 1280 and 30 fps, with audio removed. Matching WebP posters are used in the training cards, and the floor-training poster also replaces the former low-resolution Results still. The About section links directly to the footage.
 
 The five older `original-mp4-*.mp4` files and their posters remain in the source archive but are no longer referenced or included in the published build. New videos retain `preload="none"`; playback and layout were checked in a browser at desktop and mobile widths.
+
+## October 2026 — Services and consultation update
+
+- Primary navigation uses **Services** and **Book Consultation**, not Contact.
+- Training videos and four gallery cards are grouped under one Gallery section. Duplicated package, process, and generic journey sections have been removed; seven services and the factual client account remain.
+- Consultation preferences (date, time period, service, training format, and goals) are sent to the existing FormSubmit email endpoint or included in a WhatsApp message. These are *requests*, not confirmed bookings.
+- CBE, Abyssinia, and telebirr cards contain local logos and click-to-copy functionality. **The bank numbers are demonstration values and must not receive payments.** The telebirr contact number requires receiving-wallet confirmation.
+- Supplied Facebook and TikTok accounts are linked. Instagram and LinkedIn currently go to the platform homepages.
+- The header and mobile bar expose tap-to-call/WhatsApp links. For logos, payment accuracy and privacy notes, see `PAYMENT_AND_BOOKING_NOTES.md`.
