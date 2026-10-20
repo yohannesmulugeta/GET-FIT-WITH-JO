@@ -117,6 +117,10 @@ check('telebirr number uses Joseph contact and is unverified', 'data-copy-number
 check('Payment copy functionality exists', 'navigator.clipboard' in JS and 'payment-copy-status' in JS)
 check('No unfinished placeholders or third-party media', all(s not in HTML.lower() for s in ('design preview','coach miki','swap for','add approved photos','your next real client story')))
 
+check('Premium motion runtime is deployed', 'src="motion.js" defer' in HTML and 'src="motion.js" defer' in ABOUT and (ROOT/'motion.js').is_file())
+check('Premium motion design is responsive and accessible', '.motion-ready .motion-reveal' in CSS and 'prefers-reduced-motion:reduce' in CSS)
+check('Existing video gallery remains untouched', HTML.count('<video ')==2 and 'data-image-slot="gallery-04"' in HTML)
+check('Motion JS supports accessible lightbox and service preselection', all(s in (ROOT/'motion.js').read_text(encoding='utf-8') for s in ('HTMLDialogElement','dialog.showModal()','serviceField.value = title','aria-valuenow')))
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
