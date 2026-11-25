@@ -70,7 +70,19 @@ try {
   await mobile.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
   check('Mobile call and WhatsApp actions exist',await mobile.locator('.jo-mobile-actions a').count()===2);
   const toggle=mobile.locator('.menu-toggle');
-  await toggle.click();
+  console.log('MOBILE_MENU_DIAGNOSTIC',JSON.stringify(await mobile.evaluate(()=>{
+    const button=document.querySelector('.menu-toggle');
+    const box=button?.getBoundingClientRect();
+    const x=box?box.x+box.width/2:0;
+    const y=box?box.y+box.height/2:0;
+    const hit=document.elementFromPoint(x,y);
+    const shell=document.querySelector('.nav-shell');
+    return {x,y,button:box?.toJSON(),hit:hit?.outerHTML?.slice(0,230),
+      shell:shell?.getBoundingClientRect()?.toJSON(),
+      buttonStyles:button?{position:getComputedStyle(button).position,zIndex:getComputedStyle(button).zIndex,display:getComputedStyle(button).display}:null,
+      width:innerWidth,scrollWidth:document.documentElement.scrollWidth};
+  })));
+  await toggle.click({timeout:6000});
   check('Mobile menu expands',await toggle.getAttribute('aria-expanded')==='true');
   await mobile.locator('#site-nav a[href="#programs"]').click();
   check('Mobile menu closes after navigation',await toggle.getAttribute('aria-expanded')==='false');
