@@ -133,6 +133,7 @@ if(coachingForm){
     status.dataset.state=state;
   }
   function validateEnquiry(needsReplyContact){
+    refreshPreferredDate();
     if(!coachingForm.reportValidity())return false;
     if(needsReplyContact&&!fields.email.value.trim()&&!fields.phone.value.trim()){
       setEnquiryStatus('Please provide an email address or phone number so Joseph can reply.','error');
@@ -141,8 +142,27 @@ if(coachingForm){
     }
     return true;
   }
-  // The requested time is a preference; availability is confirmed by Joseph.
-  if(fields.preferredDate){const d=new Date();fields.preferredDate.min=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
+  // Interpret preferred dates in Addis Ababa, regardless of a visitor's time zone.
+  // A consultation is only a request until Joseph confirms the appointment.
+  function currentAddisDate(){
+    const parts=new Intl.DateTimeFormat('en-GB',{
+      timeZone:'Africa/Addis_Ababa',year:'numeric',month:'2-digit',day:'2-digit'
+    }).formatToParts(new Date());
+    const part=type=>parts.find(item=>item.type===type)?.value;
+    return [part('year'),part('month'),part('day')].join('-');
+  }
+  function refreshPreferredDate(){
+    if(!fields.preferredDate)return;
+    const today=currentAddisDate();
+    fields.preferredDate.min=today;
+    fields.preferredDate.setCustomValidity(
+      fields.preferredDate.value&&fields.preferredDate.value<today
+        ?'Choose today or a future date in Addis Ababa.':''
+    );
+  }
+  fields.preferredDate?.addEventListener('focus',refreshPreferredDate);
+  fields.preferredDate?.addEventListener('input',refreshPreferredDate);
+  refreshPreferredDate();
   whatsappButton.addEventListener('click',event=>{
     if(!validateEnquiry(false)){
       event.preventDefault();
