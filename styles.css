@@ -267,3 +267,13 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
 @media(max-width:760px){.jo-gallery-videos-head{align-items:flex-start;gap:15px}.jo-gallery-videos-head>p{max-width:100%}.jo-gallery-videos .video-grid{gap:15px}.jo-gallery-videos .video-info{padding:18px 15px 20px}.jo-gallery-videos .video-info h3{font-size:19px}}
 @media(max-width:510px){.jo-gallery-videos{padding:17px;border-radius:19px}.jo-gallery-videos .video-grid{grid-template-columns:minmax(0,1fr);gap:21px}.jo-gallery-videos .video-card{width:100%;max-width:380px;justify-self:center}.jo-gallery-videos [data-video-format="landscape"]{max-width:none}.jo-gallery-videos [data-video-format="landscape"] .video-info{padding:22px}.jo-gallery-videos [data-video-format="landscape"] .video-info h3{font-size:28px}.jo-gallery-videos .video-info h3{font-size:21px}.jo-gallery-videos-head{margin-bottom:23px}}
 @media(prefers-reduced-motion:reduce){.jo-gallery-videos .video-card,.video-play svg,.video-gallery-toggle,.video-consultation{transition:none}.jo-gallery-videos .video-card:hover{transform:none}}
+
+/* Keep mobile navigation tappable without horizontal scrolling. At narrow widths
+   the consultation CTA moves into the expanded menu; it remains in the header on desktop. */
+#site-nav .mobile-book-link{display:none}
+@media(max-width:510px){
+  .site-header .nav-action{display:none!important}
+  .site-header .nav-shell{justify-content:space-between}
+  .site-header .menu-toggle{margin-left:auto;flex:0 0 44px;position:relative;z-index:3}
+  #site-nav .mobile-book-link{display:block;color:var(--orange);font-weight:800}
+}
