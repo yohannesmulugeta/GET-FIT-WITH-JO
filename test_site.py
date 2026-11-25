@@ -126,6 +126,7 @@ check('Booking date uses Addis Ababa calendar day', "timeZone:'Africa/Addis_Abab
 check('Booking date is refreshed and validated before submission', 'refreshPreferredDate();\n    if(!coachingForm.reportValidity())' in JS and 'fields.preferredDate.setCustomValidity' in JS)
 check('No payment collection UI until payee verification', 'id="payments"' not in HTML and 'data-copy-number=' not in HTML)
 
+check('Mobile menu keeps consultation CTA and hamburger accessible', 'class="mobile-book-link" href="#consultation"' in HTML and 'class="mobile-book-link" href="index.html#consultation"' in ABOUT and '.site-header .nav-action{display:none!important}' in CSS and '.site-header .menu-toggle{margin-left:auto;flex:0 0 44px' in CSS)
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
