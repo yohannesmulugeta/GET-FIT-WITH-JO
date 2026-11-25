@@ -11,6 +11,10 @@ on:
       - 'test_site.py'
       - 'script.js'
       - 'motion.js'
+      - 'videos.json'
+      - 'video_gallery.py'
+      - 'test_video_gallery.py'
+      - 'build_site.py'
       - 'assets/**'
       - '.github/workflows/review-checks.yml'
 permissions:
@@ -22,9 +26,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run source integrity tests
-        run: python3 test_site.py
+        run: |
+          python3 video_gallery.py
+          python3 test_site.py
+          python3 -m unittest test_video_gallery.py
       - name: Validate browser JavaScript syntax
-        run: node --check script.js
+        run: |
+          node --check script.js
           node --check motion.js
       - name: Build published site without deployment
         run: |
@@ -32,10 +40,11 @@ jobs:
           test -s dist/index.html
           test -s dist/about.html
           test -s dist/assets/joseph-hero-mobile-fast.webp
-      - name: Check consultation, social and payment content
+      - name: Check consultation, gallery and public content
         run: |
           grep -q 'id="consultation"' dist/index.html
           grep -q 'id="enquiry-date"' dist/index.html
-          grep -q 'payment-telebirr.svg' dist/index.html
-          grep -q 'assets/training-row-2026-poster.webp' dist/index.html
+          if grep -Eq 'id="payments"|data-copy-number=' dist/index.html dist/about.html; then exit 1; fi
+          test ! -e dist/assets/payment-telebirr.svg
+          grep -q 'assets/videos/' dist/index.html
           ! grep -Eqi '<img[^>]+src="https?://' dist/index.html

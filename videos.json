@@ -1,0 +1,168 @@
+[
+  {
+    "id": "01-josi-website-2",
+    "src": "assets/videos/01-josi-website-2.mp4",
+    "poster": "assets/videos/01-josi-website-2.webp",
+    "title": "Coaching, up close.",
+    "category": "COACHING",
+    "description": "Joseph coaching a client in the gym, with original session audio",
+    "format": "landscape",
+    "enabled": true,
+    "duration": "0:43",
+    "summary": "A closer look at Joseph working with a client on the gym floor."
+  },
+  {
+    "id": "02-josi-social-media-7-1",
+    "src": "assets/videos/02-josi-social-media-7-1.mp4",
+    "poster": "assets/videos/02-josi-social-media-7-1.webp",
+    "title": "Guided strength training",
+    "category": "COACHING",
+    "description": "Guided strength training with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:33"
+  },
+  {
+    "id": "03-josi-social-media-9-1",
+    "src": "assets/videos/03-josi-social-media-9-1.mp4",
+    "poster": "assets/videos/03-josi-social-media-9-1.webp",
+    "title": "Kettlebell technique",
+    "category": "TECHNIQUE",
+    "description": "Kettlebell technique with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:44"
+  },
+  {
+    "id": "04-josi-social-media-1-1",
+    "src": "assets/videos/04-josi-social-media-1-1.mp4",
+    "poster": "assets/videos/04-josi-social-media-1-1.webp",
+    "title": "Shoulder press coaching",
+    "category": "STRENGTH",
+    "description": "Shoulder press coaching with original audio",
+    "format": "portrait",
+    "enabled": false,
+    "duration": "0:35"
+  },
+  {
+    "id": "05-josi-social-media-1-1-1",
+    "src": "assets/videos/05-josi-social-media-1-1-1.mp4",
+    "poster": "assets/videos/05-josi-social-media-1-1-1.webp",
+    "title": "Shoulder press coaching",
+    "category": "STRENGTH",
+    "description": "Shoulder press coaching with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:35"
+  },
+  {
+    "id": "06-josi-social-media-10-1",
+    "src": "assets/videos/06-josi-social-media-10-1.mp4",
+    "poster": "assets/videos/06-josi-social-media-10-1.webp",
+    "title": "A moment with JO",
+    "category": "MEET JO",
+    "description": "A moment with JO with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:33"
+  },
+  {
+    "id": "07-josi-social-media-11-1",
+    "src": "assets/videos/07-josi-social-media-11-1.mp4",
+    "poster": "assets/videos/07-josi-social-media-11-1.webp",
+    "title": "Floor exercise coaching",
+    "category": "COACHING",
+    "description": "Floor exercise coaching with original audio",
+    "format": "portrait",
+    "enabled": false,
+    "duration": "0:44"
+  },
+  {
+    "id": "08-josi-social-media-11-1",
+    "src": "assets/videos/08-josi-social-media-11-1.mp4",
+    "poster": "assets/videos/08-josi-social-media-11-1.webp",
+    "title": "Floor exercise coaching",
+    "category": "COACHING",
+    "description": "Floor exercise coaching with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:40"
+  },
+  {
+    "id": "10-josi-social-media-2-1",
+    "src": "assets/videos/10-josi-social-media-2-1.mp4",
+    "poster": "assets/videos/10-josi-social-media-2-1.webp",
+    "title": "On the gym floor with JO",
+    "category": "MEET JO",
+    "description": "On the gym floor with JO with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:29"
+  },
+  {
+    "id": "11-josi-social-media-3-1-1",
+    "src": "assets/videos/11-josi-social-media-3-1-1.mp4",
+    "poster": "assets/videos/11-josi-social-media-3-1-1.webp",
+    "title": "Barbell technique with JO",
+    "category": "TECHNIQUE",
+    "description": "Barbell technique with JO with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:33"
+  },
+  {
+    "id": "12-josi-social-media-3-1",
+    "src": "assets/videos/12-josi-social-media-3-1.mp4",
+    "poster": "assets/videos/12-josi-social-media-3-1.webp",
+    "title": "Barbell technique with JO",
+    "category": "TECHNIQUE",
+    "description": "Barbell technique with JO with original audio",
+    "format": "portrait",
+    "enabled": false,
+    "duration": "0:33"
+  },
+  {
+    "id": "13-josi-social-media-4-1",
+    "src": "assets/videos/13-josi-social-media-4-1.mp4",
+    "poster": "assets/videos/13-josi-social-media-4-1.webp",
+    "title": "Bench press coaching",
+    "category": "STRENGTH",
+    "description": "Bench press coaching with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:33"
+  },
+  {
+    "id": "14-josi-social-media-5-1",
+    "src": "assets/videos/14-josi-social-media-5-1.mp4",
+    "poster": "assets/videos/14-josi-social-media-5-1.webp",
+    "title": "Barbell curl coaching",
+    "category": "STRENGTH",
+    "description": "Barbell curl coaching with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "1:04"
+  },
+  {
+    "id": "15-josi-social-media-6-1-1",
+    "src": "assets/videos/15-josi-social-media-6-1-1.mp4",
+    "poster": "assets/videos/15-josi-social-media-6-1-1.webp",
+    "title": "Bent-over row coaching",
+    "category": "TECHNIQUE",
+    "description": "Bent-over row coaching with original audio",
+    "format": "portrait",
+    "enabled": true,
+    "duration": "0:33"
+  },
+  {
+    "id": "16-josi-social-media-6-1",
+    "src": "assets/videos/16-josi-social-media-6-1.mp4",
+    "poster": "assets/videos/16-josi-social-media-6-1.webp",
+    "title": "Bent-over row coaching",
+    "category": "TECHNIQUE",
+    "description": "Bent-over row coaching with original audio",
+    "format": "portrait",
+    "enabled": false,
+    "duration": "0:33"
+  }
+]

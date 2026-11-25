@@ -4,6 +4,10 @@ Professional single-page website for Joseph Abraham / Get Fit with JO. Hosted us
 
 **Live:** https://yohannesmulugeta.github.io/GET-FIT-WITH-JO/
 
+## Replace Shorts and add videos
+
+Edit `videos.json`, place your new footage in `assets/videos/`, and run `python video_gallery.py` (source preview) or `python build_site.py` (production build). See [VIDEO_SETUP.md](VIDEO_SETUP.md) for the fields, formats, captions, and current snapshot limitations.
+
 ## Local development
 
 ```bash
@@ -122,3 +126,7 @@ The five older `original-mp4-*.mp4` files and their posters remain in the source
 - CBE, Abyssinia, and telebirr cards contain local logos and click-to-copy functionality. **The bank numbers are demonstration values and must not receive payments.** The telebirr contact number requires receiving-wallet confirmation.
 - Supplied Facebook and TikTok accounts are linked. Instagram and LinkedIn currently go to the platform homepages.
 - The header and mobile bar expose tap-to-call/WhatsApp links. For logos, payment accuracy and privacy notes, see `PAYMENT_AND_BOOKING_NOTES.md`.
+
+## November 2026 — Josi videos with sound
+
+15 sound-enabled CapCut exports were compressed from 841.8 MB to 132.9 MB. Eleven distinct videos now replace the old remote clips in the local gallery; four alternate exports are disabled in `videos.json`. H.264 MP4s, AAC audio, fast startup and WebP covers are included. Videos load only when played, and the initial gallery offers a button to reveal more clips. Full-quality input copies and compression logs in `video-inbox/` are ignored by Git. See [VIDEO_UPDATE.md](VIDEO_UPDATE.md) for the clip selection and validation.

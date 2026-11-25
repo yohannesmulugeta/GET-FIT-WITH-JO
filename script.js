@@ -36,7 +36,62 @@ const copyright=document.querySelector('#copyright-year');
 if(copyright)copyright.textContent=String(new Date().getFullYear());
 // Avoid multiple competing audio sources when browsing the training clips.
 const videos=[...document.querySelectorAll('.video-stage video')];
-videos.forEach(v=>v.addEventListener('play',()=>videos.forEach(other=>{if(other!==v)other.pause()})));
+videos.forEach(video=>{
+  const stage=video.closest('.video-stage');
+  const title=video.closest('.video-card')?.querySelector('h3')?.textContent || 'training video';
+  const play=document.createElement('button');
+  play.type='button';
+  play.className='video-play';
+  play.setAttribute('aria-label','Play '+title);
+  play.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Watch video</span>';
+  stage.append(play);
+  const showPlay=()=>{
+    stage.classList.remove('is-playing');
+    play.hidden=false;
+    play.setAttribute('aria-label',(video.ended?'Watch again: ':'Resume ')+title);
+  };
+  play.addEventListener('click',async()=>{
+    displayPoster(video);
+    try{await video.play();}catch(error){showPlay();}
+  });
+  video.addEventListener('play',()=>{
+    videos.forEach(other=>{if(other!==video)other.pause()});
+    stage.classList.add('is-playing');
+    play.hidden=true;
+  });
+  video.addEventListener('pause',showPlay);
+  video.addEventListener('ended',showPlay);
+});
+
+// Stop session audio when a visitor moves from the featured film to booking.
+document.querySelectorAll('.video-consultation').forEach(link=>{
+  link.addEventListener('click',()=>videos.forEach(video=>video.pause()));
+});
+
+// Keep the first few clips easy to browse; all clips remain visible without JS.
+const videoGrid=document.querySelector('#training .video-grid');
+if(videoGrid){
+  const cards=[...videoGrid.querySelectorAll('.video-card')];
+  const initialCount=4;
+  if(cards.length>initialCount){
+    videoGrid.id='training-videos';
+    const toggle=document.createElement('button');
+    toggle.type='button';
+    toggle.className='video-gallery-toggle';
+    toggle.setAttribute('aria-controls',videoGrid.id);
+    const update=expanded=>{
+      cards.slice(initialCount).forEach(card=>{
+        card.hidden=!expanded;
+        if(!expanded)card.querySelector('video')?.pause();
+      });
+      toggle.setAttribute('aria-expanded',String(expanded));
+      toggle.textContent=expanded?'Show fewer videos':'View all '+String(cards.length)+' videos';
+    };
+    toggle.addEventListener('click',()=>update(toggle.getAttribute('aria-expanded')!=='true'));
+    update(false);
+    videoGrid.after(toggle);
+  }
+}
 
 // Media posters load only as each clip approaches the viewport, saving early mobile requests.
 const deferredPosters = document.querySelectorAll('video[data-poster]');
@@ -122,37 +177,3 @@ if(coachingForm){
     setEnquiryStatus('Complete the secure email submission page that opens. You may need to finish CAPTCHA. Joseph must confirm the receiving email address before delivery is active.','info');
   });
 }
-
-
-// Copy-on-click for bank sample cards and Joseph's displayed phone number.
-// All bank numbers are explicitly non-payable demonstration values.
-const paymentCopyStatus=document.querySelector('#payment-copy-status');
-document.querySelectorAll('.jo-payment-card').forEach(card=>{
-  card.addEventListener('click',async()=>{
-    const number=card.dataset.copyNumber;
-    if(!number)return;
-    let copied=false;
-    try{
-      if(navigator.clipboard&&window.isSecureContext){
-        await navigator.clipboard.writeText(number);
-        copied=true;
-      }else{
-        const input=document.createElement('textarea');
-        input.value=number;
-        input.style.position='fixed';
-        input.style.left='-9999px';
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        copied=document.execCommand('copy');
-        input.remove();
-      }
-    }catch(error){copied=false;}
-    card.classList.add('is-revealed');
-    const label=card.dataset.paymentLabel||'Payment';
-    const demo=card.classList.contains('is-demo');
-    if(paymentCopyStatus)paymentCopyStatus.textContent=copied
-      ?(label+(demo?' sample number copied. Not valid for payments.':' number copied. Verify the recipient before paying.'))
-      :'Could not copy. Please select the displayed number manually.';
-  });
-});

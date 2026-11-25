@@ -7,11 +7,13 @@ from pathlib import Path
 from html.parser import HTMLParser
 import re
 import sys
+from video_gallery import load_videos, render_videos, START, END
 
 ROOT = Path(__file__).resolve().parent
 HTML = (ROOT / 'index.html').read_text(encoding='utf-8')
 CSS = (ROOT / 'styles.css').read_text(encoding='utf-8')
 JS = (ROOT / 'script.js').read_text(encoding='utf-8')
+VIDEOS = load_videos(ROOT)
 
 class SiteParser(HTMLParser):
     def __init__(self):
@@ -38,7 +40,7 @@ class SiteParser(HTMLParser):
         for key in ('src','srcset','data-poster','poster','href'):
             v = a.get(key,'')
             if v.startswith('assets/'):
-                self.refs.extend(v.split(',')[0].split())
+                self.refs.extend(part.strip().split()[0] for part in v.split(',')) if key == 'srcset' else self.refs.append(v)
 
 p = SiteParser(); p.feed(HTML)
 tests = []
@@ -52,7 +54,8 @@ check('All linked local assets exist', all((ROOT / ref).is_file() for ref in p.r
 check('All images have descriptions', not p.alt_missing, repr(p.alt_missing))
 check('All images reserve layout dimensions', not p.img_without_dimensions,repr(p.img_without_dimensions))
 check('Videos avoid preloading', all(v.get('preload')=='none' for v in p.videos))
-check('Video posters are deferred',len(p.videos)==2 and all(v.get('data-poster') and not v.get('poster') for v in p.videos))
+check('Video posters are deferred',len(p.videos)==len(VIDEOS) and all(not v.get('poster') for v in p.videos))
+check('Video cards match editable settings', START in HTML and END in HTML and HTML.split(START,1)[1].split(END,1)[0].strip()==render_videos(VIDEOS))
 check('No external CSS/JS blockers', 'fonts.googleapis.com' not in HTML and not re.search(r'<script[^>]+src=["\']https?://',HTML))
 check('Hero mobile and desktop candidates', 'joseph-hero-fast.webp' in HTML and 'joseph-hero-mobile-fast.webp' in HTML and 'fetchpriority="high"' in HTML)
 check('Responsive breakpoints present', all(f'@media(max-width:{x}px)' in CSS for x in (1120,900,700,510,350)))
@@ -101,7 +104,7 @@ check('Provider confirmation before email delivery is documented', 'must confirm
 
 # Core requirements after the booking and page-structure redesign.
 check('Navigation uses Services and Book Consultation, not Contact', '>Services</a>' in HTML and '>Coaching</a>' not in HTML and 'href="#consultation">Book Consultation' in HTML and 'href="#contact">Contact' not in HTML)
-check('Video and photo galleries consolidated', 'class="jo-gallery-videos"' in HTML and 'id="gallery"' in HTML and 'id="training"' in HTML and HTML.count('<video ')==2)
+check('Video and photo galleries consolidated', 'class="jo-gallery-videos"' in HTML and 'id="gallery"' in HTML and 'id="training"' in HTML and HTML.count('<video ')==len(VIDEOS))
 check('One client progress section, without generic journey repetitions', 'id="results"' in HTML and '<section class="section jo-transformations-section"' not in HTML and 'id="process"' not in HTML)
 check('All visible images are local', not re.search(r'<img[^>]+src=["\\\']https?://', HTML, re.I))
 check('Gallery photo slots remain', all('data-image-slot="gallery-0'+str(i)+'"' in HTML for i in range(1,5)))
@@ -111,15 +114,12 @@ check('Preferred consultation timing reaches WhatsApp', 'fields.preferredDate.va
 check('No instant booking promise', 'not an instant booking' in HTML and 'confirmed personally by Joseph' in HTML)
 check('Social platforms include requested FB and TikTok', 'id=61594191249952' in HTML and '@getfitwithjo1' in HTML and 'https://www.linkedin.com/' in HTML and '>Threads</strong>' not in HTML)
 check('Phone is visible and callable', 'class="header-phone"' in HTML and 'class="jo-mobile-actions"' in HTML and 'href="tel:+251986890425"' in HTML)
-check('Payment logos exist locally', all((ROOT/'assets'/s).exists() for s in ('payment-cbe.png','payment-abyssinia.png','payment-telebirr.svg')))
-check('Demo payment accounts are explicitly non-payable', HTML.count('SAMPLE · NOT FOR PAYMENT')==2 and 'data-copy-number="0000000000000"' in HTML and 'data-copy-number="0000000000001"' in HTML)
-check('telebirr number uses Joseph contact and is unverified', 'data-copy-number="0986890425"' in HTML and 'has not been verified as a receiving account' in HTML)
-check('Payment copy functionality exists', 'navigator.clipboard' in JS and 'payment-copy-status' in JS)
+check('Payment details are omitted from the public pages', all(marker not in HTML + ABOUT for marker in ('id="payments"', 'data-copy-number=', 'payment-telebirr.svg', 'payment-cbe.png', 'payment-abyssinia.png')))
 check('No unfinished placeholders or third-party media', all(s not in HTML.lower() for s in ('design preview','coach miki','swap for','add approved photos','your next real client story')))
 
 check('Premium motion runtime is deployed', 'src="motion.js" defer' in HTML and 'src="motion.js" defer' in ABOUT and (ROOT/'motion.js').is_file())
 check('Premium motion design is responsive and accessible', '.motion-ready .motion-reveal' in CSS and 'prefers-reduced-motion:reduce' in CSS)
-check('Existing video gallery remains untouched', HTML.count('<video ')==2 and 'data-image-slot="gallery-04"' in HTML)
+check('Configurable video gallery and photo slots remain', HTML.count('<video ')==len(VIDEOS) and 'data-image-slot="gallery-04"' in HTML)
 check('Motion JS supports accessible lightbox and service preselection', all(s in (ROOT/'motion.js').read_text(encoding='utf-8') for s in ('HTMLDialogElement','dialog.showModal()','serviceField.value = title','aria-valuenow')))
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))

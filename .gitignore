@@ -1,2 +1,5 @@
 dist/
 __pycache__/
+video-inbox/
+assets/videos/*.partial.mp4
+assets/videos/*.poster-temp.jpg

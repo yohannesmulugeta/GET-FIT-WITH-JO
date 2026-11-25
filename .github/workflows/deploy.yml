@@ -20,7 +20,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check source and build optimized published site
         run: |
+          python3 video_gallery.py
           python3 test_site.py
+          python3 -m unittest test_video_gallery.py
           node --check script.js
           node --check motion.js
           python3 build_site.py

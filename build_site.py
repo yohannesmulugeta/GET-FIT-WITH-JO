@@ -3,11 +3,14 @@ CSS is inlined into both source pages; only media referenced in the published pa
 Original client media remains in the repo as a backup but unused originals are excluded from deployment.
 """
 from pathlib import Path
+from html.parser import HTMLParser
 import re
 import shutil
 import sys
+from video_gallery import sync_gallery, local_media
 ROOT=Path(__file__).resolve().parent
 DIST=ROOT/'dist'
+sync_gallery(ROOT)
 style=(ROOT/'styles.css').read_text(encoding='utf-8')
 inline='<style id="site-css">\n'+style+'\n</style>'
 if DIST.exists():shutil.rmtree(DIST)
@@ -25,12 +28,27 @@ for name in ('index.html','about.html'):
 for name in ('script.js','motion.js','robots.txt','sitemap.xml'):
     shutil.copy2(ROOT/name,DIST/name)
 (DIST/'assets').mkdir()
-names=set()
-for page in allpages:
-    names.update(re.findall(r'assets/([A-Za-z0-9._-]+)',page))
+class MediaParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.assets=set()
+    def handle_starttag(self, tag, attrs):
+        for key,value in attrs:
+            if key not in ('src','srcset','href','poster','data-poster') or not value:
+                continue
+            values=[part.strip().split()[0] for part in value.split(',')] if key=='srcset' else [value]
+            for item in values:
+                if item.startswith('assets/'):
+                    self.assets.add(local_media(item))
+media=MediaParser()
+for page in allpages:media.feed(page)
+names=media.assets
 for name in sorted(names):
-    asset=ROOT/'assets'/name
-    if not asset.is_file():sys.exit('Missing asset '+str(asset))
-    shutil.copy2(asset,DIST/'assets'/name)
+    asset=(ROOT/name).resolve()
+    if not asset.is_relative_to((ROOT/'assets').resolve()) or not asset.is_file():
+        sys.exit('Missing or invalid asset '+str(asset))
+    target=DIST/name
+    target.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(asset,target)
 print('Published',len(allpages),'pages and',len(names),'used media files; inlined CSS',len(style.encode()),'bytes.')
 print('Dist bytes:',sum(p.stat().st_size for p in DIST.rglob('*') if p.is_file()))
