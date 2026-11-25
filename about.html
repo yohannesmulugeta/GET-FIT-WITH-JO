@@ -279,6 +279,15 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
 @media(max-width:510px){.jo-gallery-videos{padding:17px;border-radius:19px}.jo-gallery-videos .video-grid{grid-template-columns:minmax(0,1fr);gap:21px}.jo-gallery-videos .video-card{width:100%;max-width:380px;justify-self:center}.jo-gallery-videos [data-video-format="landscape"]{max-width:none}.jo-gallery-videos [data-video-format="landscape"] .video-info{padding:22px}.jo-gallery-videos [data-video-format="landscape"] .video-info h3{font-size:28px}.jo-gallery-videos .video-info h3{font-size:21px}.jo-gallery-videos-head{margin-bottom:23px}}
 @media(prefers-reduced-motion:reduce){.jo-gallery-videos .video-card,.video-play svg,.video-gallery-toggle,.video-consultation{transition:none}.jo-gallery-videos .video-card:hover{transform:none}}
 
+/* Keep mobile navigation tappable without horizontal scrolling. At narrow widths
+   the consultation CTA moves into the expanded menu; it remains in the header on desktop. */
+#site-nav .mobile-book-link{display:none}
+@media(max-width:510px){
+  .site-header .nav-action{display:none!important}
+  .site-header .nav-shell{justify-content:space-between}
+  .site-header .menu-toggle{margin-left:auto;flex:0 0 44px;position:relative;z-index:3}
+  #site-nav .mobile-book-link{display:block;color:var(--orange);font-weight:800}
+}
 </style>
   <script src="script.js" defer></script>
   <script src="motion.js" defer></script><title>About Joseph Abraham | Get Fit with JO</title>
@@ -288,7 +297,7 @@ a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}butt
   <header class="site-header" id="top"><div class="container nav-shell">
     <a class="brand" href="index.html#top" aria-label="Get Fit with JO, home">GET FIT <span>WITH JO<span class="brand-dot">.</span></span></a>
     <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
-    <nav id="site-nav" aria-label="Primary navigation"><a href="#main" aria-current="page">About</a><a href="index.html#programs">Services</a><a href="index.html#gallery">Gallery</a><a href="index.html#results">Results</a><a href="index.html#faq">FAQ</a></nav>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="#main" aria-current="page">About</a><a href="index.html#programs">Services</a><a href="index.html#gallery">Gallery</a><a href="index.html#results">Results</a><a href="index.html#faq">FAQ</a><a class="mobile-book-link" href="index.html#consultation">Book Consultation</a></nav>
     <a class="header-phone" href="tel:+251986890425">☎ 0986 890 425</a><a class="nav-action" href="index.html#consultation">Book Consultation <span aria-hidden="true">↗</span></a>
   </div></header>
   <main id="main">
