@@ -121,6 +121,11 @@ check('Premium motion runtime is deployed', 'src="motion.js" defer' in HTML and 
 check('Premium motion design is responsive and accessible', '.motion-ready .motion-reveal' in CSS and 'prefers-reduced-motion:reduce' in CSS)
 check('Configurable video gallery and photo slots remain', HTML.count('<video ')==len(VIDEOS) and 'data-image-slot="gallery-04"' in HTML)
 check('Motion JS supports accessible lightbox and service preselection', all(s in (ROOT/'motion.js').read_text(encoding='utf-8') for s in ('HTMLDialogElement','dialog.showModal()','serviceField.value = title','aria-valuenow')))
+# Prevent appointment requests from silently using the wrong time zone.
+check('Booking date uses Addis Ababa calendar day', "timeZone:'Africa/Addis_Ababa'" in JS and 'currentAddisDate()' in JS)
+check('Booking date is refreshed and validated before submission', 'refreshPreferredDate();\n    if(!coachingForm.reportValidity())' in JS and 'fields.preferredDate.setCustomValidity' in JS)
+check('No payment collection UI until payee verification', 'id="payments"' not in HTML and 'data-copy-number=' not in HTML)
+
 for name,ok,details in tests:
     print(('PASS' if ok else 'FAIL')+'  '+name+((': '+details) if details and not ok else ''))
 print(f'\n{sum(ok for _,ok,_ in tests)}/{len(tests)} source checks passed')
