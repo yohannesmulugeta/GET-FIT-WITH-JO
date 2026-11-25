@@ -26,9 +26,20 @@ jobs:
           node --check script.js
       - name: Install Lighthouse tester
         run: npm install --global lighthouse@12
+      - name: Install browser interaction tester
+        if: github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch'
+        run: npm install --no-save --no-package-lock playwright-core@1.56.1
+      - name: Browser interaction smoke test on official website
+        if: github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch'
+        env:
+          SITE_URL: https://jofitcoach.com/
+        run: |
+          CHROME_PATH="$(which google-chrome-stable || which google-chrome || which chromium-browser)"
+          export CHROME_PATH
+          node tests/browser-smoke.mjs
       - name: Test mobile and desktop live website
         env:
-          SITE_URL: https://yohannesmulugeta.github.io/GET-FIT-WITH-JO/
+          SITE_URL: https://jofitcoach.com/
         run: |
           set -euo pipefail
           mkdir -p lighthouse-reports
