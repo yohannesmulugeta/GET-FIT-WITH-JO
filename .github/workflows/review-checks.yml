@@ -40,6 +40,16 @@ jobs:
           test -s dist/index.html
           test -s dist/about.html
           test -s dist/assets/joseph-hero-mobile-fast.webp
+      - name: Browser-test the built site before merging
+        run: |
+          npm install --no-save --no-package-lock playwright-core@1.56.1
+          (cd dist && python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/jo-site-test.log 2>&1) &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          sleep 2
+          CHROME_PATH="$(which google-chrome-stable || which google-chrome || which chromium-browser)"
+          export CHROME_PATH
+          SITE_URL=http://127.0.0.1:8765/ node tests/browser-smoke.mjs
       - name: Check consultation, gallery and public content
         run: |
           grep -q 'id="consultation"' dist/index.html
