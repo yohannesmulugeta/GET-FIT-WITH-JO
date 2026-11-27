@@ -27,7 +27,7 @@ jobs:
           node --check motion.js
           python3 build_site.py
           test -s dist/index.html
-          test -s dist/assets/joseph-hero-mobile-fast.webp
+          test -s dist/assets/joseph-hero-v3-mobile-fast.webp
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
