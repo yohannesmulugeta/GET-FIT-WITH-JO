@@ -22,6 +22,14 @@ try {
   const response = await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
   check('Production homepage responds successfully', response?.ok());
   await page.waitForSelector('#consultation');
+  // A cached older release can pass interaction checks while showing retired photos.
+  check('Latest real-photo hero is deployed',
+    await page.locator('.hero-portrait').getAttribute('src') === 'assets/joseph-hero-v3-fast.webp');
+  check('Retired illustrative photo labels are absent',
+    await page.locator('img[alt*="AI-assisted"],img[alt*="Illustrative"],img[alt*="illustrative"]').count() === 0);
+  check('Current social profiles are deployed',
+    await page.locator('a[href="https://www.instagram.com/jofitcoach"]').count() === 1 &&
+    await page.locator('a[href="https://www.linkedin.com/in/joseph-abraham-7b00b2191"]').count() === 1);
   check('Services navigation and consultation are present',
     await page.getByRole('navigation',{name:'Primary navigation'}).getByText('Services',{exact:true}).count()===1 &&
     await page.locator('#consultation').count()===1);
@@ -92,3 +100,4 @@ try {
 } finally {
   await browser.close();
 }
+
